@@ -1,0 +1,92 @@
+<style type="text/css">
+		canvas {
+			margin-top: 3px;
+		}
+</style>
+<h3>Sequencer using Tone.js API</h3>
+
+<div id="Content">
+		<!-- <div id="Title">Tone.Transport</div>
+		<div id="Explanation">
+			<a href="https://tonejs.github.io/docs/#Transport">Tone.Transport</a>
+			is the application-wide timekeeper. It's clock source enables sample-accurate scheduling as well as tempo-curves and automation. This example uses Tone.Sequence to invoke a callback every 16th note.
+		</div> -->
+	<canvas nx="matrix"></canvas>
+
+</div>
+
+<script>
+	//setup a polyphonic sampler
+	var keys = new Tone.Players({
+		"A" : "./audio/casio/A1.[mp3|ogg]",
+		"C#" : "./audio/casio/Cs2.[mp3|ogg]",
+		"E" : "./audio/casio/E2.[mp3|ogg]",
+		"F#" : "./audio/casio/Fs2.[mp3|ogg]",
+	}, {
+		"volume" : -10,
+		"fadeOut" : "64n",
+	}).toMaster();
+	//the notes
+	var noteNames = ["F#", "E", "C#", "A"];
+	var loop = new Tone.Sequence(function(time, col){
+		var column = matrix1.matrix[col];
+		for (var i = 0; i < 4; i++){
+			if (column[i] === 1){
+				//slightly randomized velocities
+				var vel = Math.random() * 0.5 + 0.5;
+				keys.get(noteNames[i]).start(time, 0, "32n", 0, vel);
+			}
+		}
+	}, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15], "16n");
+	Tone.Transport.start();
+  var checkSelected = function(){
+    var arr = [false, false, false, false];
+    for(var k = 0; k < matrix1.col; k++){
+      if(matrix1.matrix[k] == 1){
+        arr[k] = true;
+      }
+    }
+    for(var j = 0; j < 4; j++){
+      console.log(arr[j] + ' ');
+    }
+  };
+	// GUI //
+	nx.onload = function(){
+		nx.colorize("#f5871f");
+
+		matrix1.col = 4;
+    matrix1.row = 1;
+		matrix1.init();
+		matrix1.resize($("#Content").width(), 200);
+		matrix1.draw();
+	}
+	Interface.Slider({
+		name : "BPM",
+		min : 80,
+		max : 200,
+		value : Tone.Transport.bpm.value,
+		drag : function(val){
+			Tone.Transport.bpm.value = val;
+		}
+	});
+	Interface.Button({
+		text : "Start",
+		activeText : "Stop",
+		type : "toggle",
+		key : 32, //spacebar
+		start : function(){
+			loop.start();
+      checkSelected();
+		},
+		end : function(){
+			loop.stop();
+		},
+	});
+	Interface.Loader();
+	$(window).on("resize", function(){
+		matrix1.resize($("#Content").width(), 200);
+		matrix1.draw();
+	});
+
+
+</script>

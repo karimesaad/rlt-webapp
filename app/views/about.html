@@ -1,0 +1,17 @@
+<h3>Sequencer using NexusUI API</h3>
+<!-- To connect the UI objects with the backend (javascript) just make them have the same id -->
+<div class="container" id="nexus_sequencer">
+  <div class="row">
+    <div id="sequencer"></div>
+  </div>
+  <div class="row">
+    <div class="col-md-2 col-md-offset-2">
+      <div id="start-button"> Start </div>
+    </div>
+    <div class="col-md-2">
+      <div nexus-ui="stop-button" id="stop-button" ng-model="stopbutton"> Stop </div>
+    </div>
+    <!-- <div class="col-md-2" ng-controller="AboutCtrl"> -->
+      BPM: <input type="text" name="bpm" ng-change="displayBPM()" ng-model="bpm1" >
+    </div>
+</div>
