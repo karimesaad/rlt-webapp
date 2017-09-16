@@ -40,10 +40,15 @@ angular.module('testappApp')
     startButton.on('change', function(v){
       sequencer.start($scope.bpm1);
       console.log(sequencer.matrix.pattern);
+      console.log("buttons 1 - 4: ");
+      console.log(sequencer.matrix.pattern[0]);
+      console.log("is button 8 pressed? ");
+      console.log(sequencer.matrix.pattern[1][3]);
     });
     stopButton.on('change', function(v){
       sequencer.stop();
       console.log(sequencer.matrix.pattern);
+
     });
     var displayBPM = function(){
       //console.log($scope.bpm1);
