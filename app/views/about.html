@@ -1,4 +1,7 @@
 <h3>Sequencer using NexusUI API</h3>
+<div class="row">
+  <div ng-repeat="b in vm.buttons">{{b}}</div>
+</div>
 <!-- To connect the UI objects with the backend (javascript) just make them have the same id -->
 <div class="container" id="nexus_sequencer">
   <div class="row">
@@ -14,4 +17,7 @@
     <!-- <div class="col-md-2" ng-controller="AboutCtrl"> -->
       BPM: <input type="text" name="bpm" ng-change="displayBPM()" ng-model="bpm1" >
     </div>
+  <div class="row">
+    <div ng-repeat="b in buttons">{{b}}</div>
+  </div>
 </div>

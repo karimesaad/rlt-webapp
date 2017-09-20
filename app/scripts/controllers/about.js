@@ -8,7 +8,26 @@
  * Controller of the testappApp
  */
 angular.module('testappApp')
-  .controller('AboutCtrl', function ($scope) {
+  .controller('AboutCtrl', function ($scope, firebaseFactory) {
+    var lessonData = firebaseFactory.ref;
+    console.log(lessonData);
+
+    // vm.lessonData.$loaded().then(function(lessonData){
+    //   vm.buttons = getButtons(lessonData);
+    // });
+    //   vm.buttons = getButtons(lessonData);
+    // // var firebase = firebaseFactory.ref;
+    //
+    // function getButtons(lessonData){
+    //   var buttons = [];
+    //   angular.forEach(lessonData, function(item){
+    //     angular.forEach(item.lessonName1, function(button){
+    //       buttons.push(button);
+    //     });
+    //   });
+    //   return buttons;
+    // };
+    // console.log(vm.buttons);
     this.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',
