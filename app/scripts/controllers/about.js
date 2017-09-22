@@ -8,9 +8,35 @@
  * Controller of the testappApp
  */
 angular.module('testappApp')
-  .controller('AboutCtrl', function ($scope, firebaseFactory) {
-    var lessonData = firebaseFactory.ref;
-    console.log(lessonData);
+  .controller('AboutCtrl', function ($scope, firebaseFactory, $firebaseArray, $firebase) {
+
+    // function getData(){
+    //   var lessonData = firebaseFactory.ref;
+    //   // console.log(lessonData.child);
+    //   var newPostKey = lessonData.child('posts').push().key;
+    //
+    //   var postData = {
+    //     20: {
+    //       pressed: "true",
+    //       time: 20
+    //     }
+    //   };
+    //
+    //   var updates = {};
+    //   updates['/posts/' + newPostKey] = postData;
+    //   lessonData.update(updates);
+    // }
+
+    function writeUserData(userId, name, email, imageUrl) {
+      firebase.database().ref('-KuNQNRPHne-GfY4ZBEG/lessonName1/' + userId).set({
+        username: name,
+        email: email,
+        profile_picture : imageUrl
+      });
+    }
+
+
+
 
     // vm.lessonData.$loaded().then(function(lessonData){
     //   vm.buttons = getButtons(lessonData);
@@ -58,11 +84,12 @@ angular.module('testappApp')
 
     startButton.on('change', function(v){
       sequencer.start($scope.bpm1);
-      console.log(sequencer.matrix.pattern);
-      console.log("buttons 1 - 4: ");
-      console.log(sequencer.matrix.pattern[0]);
-      console.log("is button 8 pressed? ");
-      console.log(sequencer.matrix.pattern[1][3]);
+      // console.log(sequencer.matrix.pattern);
+      // console.log("buttons 1 - 4: ");
+      // console.log(sequencer.matrix.pattern[0]);
+      // console.log("is button 8 pressed? ");
+      // console.log(sequencer.matrix.pattern[1][3]);
+      writeUserData("blake", "name", "email", "imageUrl")
     });
     stopButton.on('change', function(v){
       sequencer.stop();
