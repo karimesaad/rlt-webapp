@@ -11,7 +11,7 @@ angular.module('testappApp')
   .controller('AboutCtrl', function ($scope, firebaseFactory, $firebaseArray, $firebase) {
 
     // function getData(){
-    //   var lessonData = firebaseFactory.ref;
+      // var lessonData = firebaseFactory.ref;
     //   // console.log(lessonData.child);
     //   var newPostKey = lessonData.child('posts').push().key;
     //
@@ -26,15 +26,89 @@ angular.module('testappApp')
     //   updates['/posts/' + newPostKey] = postData;
     //   lessonData.update(updates);
     // }
-
-    function writeUserData(userId, name, email, imageUrl) {
-      firebase.database().ref('-KuNQNRPHne-GfY4ZBEG/lessonName1/' + userId).set({
-        username: name,
-        email: email,
-        profile_picture : imageUrl
+    function readData(){
+      firebase.database().ref('-KuNQNRPHne-GfY4ZBEG/lessonName1/2/pressed').once('value').then(function(snapshot) {
+        console.log(snapshot.val());
       });
     }
 
+
+    function writeLessonData() {
+      firebase.database().ref('lessons/').set({
+      	"lesson1" : {
+          "name": "lesson1-name",
+          "sublesson1" : {
+            "name": "sublesson1-name",
+            "stepsequencer1": {
+              "btn1": {
+                "pressed": "true",
+                "time": 1
+              },
+              "btn2": {
+                "pressed": "true",
+                "time": 2
+              },
+              "btn3": {
+                "pressed": "true",
+                "time": 3
+              },
+              "btn4": {
+                "pressed": "true",
+                "time": 4
+              },
+              "btn5": {
+                "pressed": "true",
+                "time": 5
+              },
+              "btn6": {
+                "pressed": "true",
+                "time": 6
+              },
+              "btn7": {
+                "pressed": "true",
+                "time": 7
+              },
+              "btn8": {
+                "pressed": "true",
+                "time": 8
+              },
+              "btn9": {
+                "pressed": "true",
+                "time": 9
+              },
+              "btn10": {
+                "pressed": "true",
+                "time": 10
+              },
+              "btn11": {
+                "pressed": "true",
+                "time": 11
+              },
+              "btn12": {
+                "pressed": "true",
+                "time": 12
+              },
+              "btn13": {
+                "pressed": "true",
+                "time": 13
+              },
+              "btn14": {
+                "pressed": "true",
+                "time": 14
+              },
+              "btn15": {
+                "pressed": "true",
+                "time": 15
+              },
+              "btn16": {
+                "pressed": "true",
+                "time": 16
+              }
+            }
+          }
+        }
+      });
+    }
 
 
 
@@ -54,6 +128,9 @@ angular.module('testappApp')
     //   return buttons;
     // };
     // console.log(vm.buttons);
+
+
+
     this.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',
@@ -89,7 +166,8 @@ angular.module('testappApp')
       // console.log(sequencer.matrix.pattern[0]);
       // console.log("is button 8 pressed? ");
       // console.log(sequencer.matrix.pattern[1][3]);
-      writeUserData("blake", "name", "email", "imageUrl")
+      writeLessonData();
+      readData();
     });
     stopButton.on('change', function(v){
       sequencer.stop();
