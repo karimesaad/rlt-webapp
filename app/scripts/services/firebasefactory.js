@@ -13,8 +13,6 @@ angular.module('testappApp')
       apiKey: "AIzaSyDN7epcpKLj7J5FrJzC46tZW-h88kKJvlU",
       authDomain: "rhythmic-learning-tool.firebaseapp.com",
       databaseURL: "https://rhythmic-learning-tool.firebaseio.com",
-      storageBucket: "rhythmic-learning-tool.appspot.com",
-      messagingSenderId: "74449835170",
     };
     firebase.initializeApp(config);
 
