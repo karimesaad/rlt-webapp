@@ -18,6 +18,7 @@
       BPM: <input type="text" name="bpm" ng-change="displayBPM()" ng-model="bpm1" >
     </div>
   <div class="row">
-    <div ng-repeat="b in buttons">{{b}}</div>
-  </div>
+    <ul>
+      <li ng-repeat="lesson in lessons">{{ lesson.lesson1.sublesson1.stepseq1.btn1.pressed }}</li>
+    </ul>  </div>
 </div>

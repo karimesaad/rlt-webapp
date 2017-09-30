@@ -46,6 +46,26 @@ angular
         controller: 'StudentsCtrl',
         controllerAs: 'students'
       })
+      .when('/LessonsList', {
+        templateUrl: 'views/lessonslist.html',
+        controller: 'LessonslistCtrl',
+        controllerAs: 'LessonsList'
+      })
+      .when('/LessonPage', {
+        templateUrl: 'views/lessonpage.html',
+        controller: 'LessonpageCtrl',
+        controllerAs: 'LessonPage'
+      })
+      .when('/PlaySublesson', {
+        templateUrl: 'views/playsublesson.html',
+        controller: 'PlaysublessonCtrl',
+        controllerAs: 'PlaySublesson'
+      })
+      .when('/EditSublesson', {
+        templateUrl: 'views/editsublesson.html',
+        controller: 'EditsublessonCtrl',
+        controllerAs: 'EditSublesson'
+      })
       .otherwise({
         redirectTo: '/'
       });
