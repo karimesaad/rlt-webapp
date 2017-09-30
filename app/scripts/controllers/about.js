@@ -8,7 +8,9 @@
  * Controller of the testappApp
  */
 angular.module('testappApp')
-  .controller('AboutCtrl', function ($scope, firebaseFactory, $firebaseArray, $firebase) {
+  .controller('AboutCtrl', function ($scope, firebaseFactory, $firebaseArray, $firebase, $firebaseObject) {
+
+    // var firebase = firebaseFactory.ref;
 
     // function getData(){
       // var lessonData = firebaseFactory.ref;
@@ -26,110 +28,270 @@ angular.module('testappApp')
     //   updates['/posts/' + newPostKey] = postData;
     //   lessonData.update(updates);
     // }
+
+/************ FIREBASE READ ***********/
+
     function readData(){
       firebase.database().ref('-KuNQNRPHne-GfY4ZBEG/lessonName1/2/pressed').once('value').then(function(snapshot) {
-        console.log(snapshot.val());
+    //    console.log(snapshot.val());
       });
     }
 
-
-    function writeLessonData() {
-      firebase.database().ref('lessons/').set({
-      	"lesson1" : {
-          "name": "lesson1-name",
-          "sublesson1" : {
-            "name": "sublesson1-name",
-            "stepsequencer1": {
-              "btn1": {
-                "pressed": "true",
-                "time": 1
-              },
-              "btn2": {
-                "pressed": "true",
-                "time": 2
-              },
-              "btn3": {
-                "pressed": "true",
-                "time": 3
-              },
-              "btn4": {
-                "pressed": "true",
-                "time": 4
-              },
-              "btn5": {
-                "pressed": "true",
-                "time": 5
-              },
-              "btn6": {
-                "pressed": "true",
-                "time": 6
-              },
-              "btn7": {
-                "pressed": "true",
-                "time": 7
-              },
-              "btn8": {
-                "pressed": "true",
-                "time": 8
-              },
-              "btn9": {
-                "pressed": "true",
-                "time": 9
-              },
-              "btn10": {
-                "pressed": "true",
-                "time": 10
-              },
-              "btn11": {
-                "pressed": "true",
-                "time": 11
-              },
-              "btn12": {
-                "pressed": "true",
-                "time": 12
-              },
-              "btn13": {
-                "pressed": "true",
-                "time": 13
-              },
-              "btn14": {
-                "pressed": "true",
-                "time": 14
-              },
-              "btn15": {
-                "pressed": "true",
-                "time": 15
-              },
-              "btn16": {
-                "pressed": "true",
-                "time": 16
-              }
-            }
-          }
-        }
-      });
-    }
-
-
-
-    // vm.lessonData.$loaded().then(function(lessonData){
-    //   vm.buttons = getButtons(lessonData);
+    // var buttons = [];
+    // var buttonsRef = firebase.ref('-Kv2vFpjvAStbe8xMtEH');
+    // buttonsRef.$loaded().then(function(buttonsRef){
+    //   buttons = getButtons(buttonsRef);
     // });
-    //   vm.buttons = getButtons(lessonData);
-    // // var firebase = firebaseFactory.ref;
     //
-    // function getButtons(lessonData){
-    //   var buttons = [];
-    //   angular.forEach(lessonData, function(item){
-    //     angular.forEach(item.lessonName1, function(button){
-    //       buttons.push(button);
+    // function getButtons(buttonsRef){
+    //   angular.forEach(buttonsRef, function(item){
+    //     angular.forEach(item.sublesson4, function(step){
+    //       angular.forEach(step.stepsequencer4, function(button){
+    //         buttons.push(button);
+    //       })
     //     });
     //   });
-    //   return buttons;
     // };
-    // console.log(vm.buttons);
+    // console.log(buttons);
 
 
+//
+// {
+//     "artists": {
+//         "Atif":{
+//             "name":"atif",
+//             "rating":8
+//         },
+//         "Himesh":{
+//             "name":"himesh",
+//             "rating":5
+//         }
+//     }
+// }
+
+  // // download the data into a local object
+  // $scope.data = $firebaseObject(firebase);
+  //
+  // // putting a console.log here won't work, see below
+  //   firebase.on("value", function(snapshot)
+  //   {
+  //     console.log(snapshot.val());
+  //   }, function (errorObject)
+  //   {
+  //     console.log("The read failed: " + errorObject.code);
+  //   });
+  //  var lessons=new Firebase("https://gigstart.firebaseio.com//artists");
+
+  // var lessons = firebase.child("lessons");
+  // $scope.lessons = new $firebaseArray(lessons);
+  // console.log($scope.lessons);
+  //
+
+  //
+  // var sectionsRef = firebase.database().ref;
+  // sectionsRef
+  // .orderByChild('name')
+  // .equalTo('lesson3-name');
+  // $scope.sections = $firebaseArray(sectionsRef);
+  // console.log($scope.sections);
+  //
+
+/****** FIREBASE: READ ****/
+// Get all data in one object ($scope.data) and then access each single object/value inside
+//
+  var ref = firebase.database().ref();
+  $scope.data = $firebaseObject(ref);
+  var buttons = [];
+  var button;
+  var btnRef;
+  // this waits for the data to load and then logs the output. Therefore,
+  // data from the server will now appear in the logged output. Use this with care!
+  $scope.data.$loaded()
+    .then(function() {
+      console.log($scope.data.lessons.lesson1.sublesson1.stepseq1.btn1);
+      btnRef = $scope.data.lessons.lesson1.sublesson1.stepseq1;
+
+    angular.forEach(btnRef, function(button){
+      button = buttons.push(btnRef.child());
+    })
+    .catch(function(err) {
+      console.error(err);
+    });
+});
+//////Another try
+
+var ref = firebase.database().ref().child("lessons");
+  // create a synchronized array
+  // click on `index.html` above to see it used in the DOM!
+  $scope.lessons = $firebaseArray(ref);
+  console.log($scope.lessons);
+
+/********* FIREBASE WRITE ***************/
+/* Two ways of posting data to firebase:
+    1. using firebaseFactory.ref.$add(xyz);
+    2. firebaseFactory.ref('/xyz').set({ data });
+
+    Differences between Add and Set:
+    - $add(): Creates new data and Firebase creates new random key
+    - set(): Overwrites data that is already in Firebase
+/***********************************/
+
+var data = {
+    "lesson3" : {
+      "name": "lesson3-name",
+      "sublesson4" : {
+        "name": "sublesson4-name",
+        "stepsequencer4": {
+          "btn1": {
+            "pressed": "false",
+            "time": 1
+          },
+          "btn2": {
+            "pressed": "false",
+            "time": 2
+          },
+          "btn3": {
+            "pressed": "false",
+            "time": 3
+          },
+          "btn4": {
+            "pressed": "false",
+            "time": 4
+          },
+          "btn5": {
+            "pressed": "true",
+            "time": 5
+          },
+          "btn6": {
+            "pressed": "true",
+            "time": 6
+          },
+          "btn7": {
+            "pressed": "true",
+            "time": 7
+          },
+          "btn8": {
+            "pressed": "true",
+            "time": 8
+          },
+          "btn9": {
+            "pressed": "false",
+            "time": 9
+          },
+          "btn10": {
+            "pressed": "true",
+            "time": 10
+          },
+          "btn11": {
+            "pressed": "false",
+            "time": 11
+          },
+          "btn12": {
+            "pressed": "true",
+            "time": 12
+          },
+          "btn13": {
+            "pressed": "false",
+            "time": 13
+          },
+          "btn14": {
+            "pressed": "true",
+            "time": 14
+          },
+          "btn15": {
+            "pressed": "false",
+            "time": 15
+          },
+          "btn16": {
+            "pressed": "true",
+            "time": 16
+          }
+        }
+      }
+    }
+  }
+
+// angular.forEach(data, function(item){
+// //  firebase.$add(item);
+// });
+
+/*function writeLessonData() {
+  firebase.database().ref('lessons/').set({
+  	"lesson1" : {
+      "name": "lesson1-name",
+      "sublesson1" : {
+        "name": "sublesson1-name",
+        "stepsequencer1": {
+          "btn1": {
+            "pressed": "true",
+            "time": 1
+          },
+          "btn2": {
+            "pressed": "true",
+            "time": 2
+          },
+          "btn3": {
+            "pressed": "true",
+            "time": 3
+          },
+          "btn4": {
+            "pressed": "true",
+            "time": 4
+          },
+          "btn5": {
+            "pressed": "true",
+            "time": 5
+          },
+          "btn6": {
+            "pressed": "true",
+            "time": 6
+          },
+          "btn7": {
+            "pressed": "true",
+            "time": 7
+          },
+          "btn8": {
+            "pressed": "true",
+            "time": 8
+          },
+          "btn9": {
+            "pressed": "true",
+            "time": 9
+          },
+          "btn10": {
+            "pressed": "true",
+            "time": 10
+          },
+          "btn11": {
+            "pressed": "true",
+            "time": 11
+          },
+          "btn12": {
+            "pressed": "true",
+            "time": 12
+          },
+          "btn13": {
+            "pressed": "true",
+            "time": 13
+          },
+          "btn14": {
+            "pressed": "true",
+            "time": 14
+          },
+          "btn15": {
+            "pressed": "true",
+            "time": 15
+          },
+          "btn16": {
+            "pressed": "true",
+            "time": 16
+          }
+        }
+      }
+    }
+  });
+}
+*/
 
     this.awesomeThings = [
       'HTML5 Boilerplate',
