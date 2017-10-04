@@ -11,6 +11,7 @@
 angular
   .module('testappApp', [
     'ngAnimate',
+    'ngMaterial',
     'ngCookies',
     'ngResource',
     'ngRoute',
