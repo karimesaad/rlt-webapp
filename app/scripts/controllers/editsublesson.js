@@ -14,20 +14,42 @@ angular.module('testappApp')
       'AngularJS',
       'Karma'
     ];
-    var editSequencer = new Nexus.Sequencer('#sequencer',{
-      'size': [500,500],
+    var numSeq = 1;
+    function addSeq(){
+      if (numSeq < 16){
+        numSeq++;
+      var newSequencer = new Nexus.Sequencer('#sequencer' + numSeq,{
+        'size': [100,100],
+        'mode': 'toggle',
+        'rows': 4,
+        'columns': 4
+      });
+    }
+    }
+    var newSequencer1 = new Nexus.Sequencer('#sequencer1',{
+      'size': [100,100],
       'mode': 'toggle',
       'rows': 4,
       'columns': 4
     });
-    var startButton = new Nexus.Button('#start-button',{
+    var editButton = new Nexus.Button('#edit-button',{
       'id': 'circle-svg',
       'size': [60,60],
       'mode': 'toggle',
       'state': false
     });
-    startButton.on('change', function(v){
+    var newButton = new Nexus.Button('#new-button',{
+      'id': 'circle-svg',
+      'size': [60,60],
+      'mode': 'toggle',
+      'state': false
+    });
+
+    editButton.on('change', function(v){
       pushSequencer();
+    });
+    newButton.on('change', function(v){
+      addSeq();
     });
     function pushSequencer() {
       var values = [];
@@ -36,7 +58,7 @@ angular.module('testappApp')
       for (var i = 0; i < 4; i++){
         for (var j = 0; j < 4; j++){
 
-           values.push(editSequencer.matrix.pattern[i][j]);
+           values.push(newSequencer1.matrix.pattern[i][j]);
 
         }
       }
