@@ -1,1 +1,71 @@
-<p>This is the LessonsList view.</p>
+<!-- <p>This is the LessonsList view.</p> -->
+
+
+<!-- <script src="bower_components/angular/angular.min.js"></script> -->
+<!-- <script src="bower_components/angular-animate/angular-animate.js"></script>
+<script src="bower_components/angular-aria/angular-aria.min.js"></script>
+<script src="bower_components/angular-material/angular-material.min.js"></script> -->
+
+<md-toolbar>
+  <h1>Lessons</h1>
+</md-toolbar>
+
+<div ng-controller="LessonslistCtrl" layout="row" flex>
+  <md-sidenav md-is-locked-open="true" class="md-whiteframe-4dp">
+    <md-list>
+      <md-list-item>
+        <md-button ng-click="showPageContent(1)">
+          <md-icon md-svg-src="images/3-4_Time.svg" class="avatar"></md-icon>
+          Dummy Lesson 1
+        </md-button>
+      </md-list-item>
+      <md-list-item>
+        <md-button ng-click="showPageContent(2)">
+          <md-icon md-svg-src="images/MusicIcon1.svg" class="avatar"></md-icon>
+          Dummy Lesson 2
+        </md-button>
+      </md-list-item>
+    </md-list>
+  </md-sidenav>
+
+  <md-content id="content" flex>
+    <h1>Lesson Name: {{lesson}}</h1>
+
+    <md-list>
+      <md-list-item>
+        <h3>Dummy Sublesson 1</h3>
+      </md-list-item>
+
+      <md-list-item>
+        <md-button>
+          <md-icon md-svg-src="images/media-play.svg" class="avatar"></md-icon>
+          Play
+        </md-button>
+      </md-list-item>
+      <md-list-item>
+        <md-button>
+          <md-icon md-svg-src="images/ellipses.svg" class="avatar"></md-icon>
+          Edit
+        </md-button>
+      </md-list-item>
+      <md-list-item>
+        <h3>Dummy Sublesson 2</h3>
+      </md-list-item>
+
+      <md-list-item>
+        <md-button>
+          <md-icon md-svg-src="images/media-play.svg" class="avatar"></md-icon>
+          Play
+        </md-button>
+      </md-list-item>
+      <md-list-item>
+        <md-button>
+          <md-icon md-svg-src="images/ellipses.svg" class="avatar"></md-icon>
+          Edit
+        </md-button>
+      </md-list-item>
+    </md-list>
+
+
+  </md-content>
+</div>
