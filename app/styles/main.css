@@ -1,3 +1,54 @@
+/* LESSON LIST */
+
+html, body{
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+  margin: 0px;
+  padding: 0px;
+}
+
+.container {
+  padding-right: 0px;
+  padding-left: 0px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+md-toolbar h3 {
+  margin:auto;
+  font-weight: 500;
+}
+
+md-list-item > button {
+  width:100%;
+  text-align:left !important;
+}
+
+#content {
+  padding-left: 40px;
+  padding-right: 40px;
+  padding-top: 5px;
+}
+
+.avatar {
+  position: relative;
+  width: 50px;
+  height: 50px;
+  /*border: 1px solid #DDD;
+  border-radius: 50%;*/
+  display: inline-block;
+  overflow: hidden;
+  margin: 0px;
+  vertical-align: middle;
+  zoom:0.70;
+  transform: translateZ(0);
+  -webkit-transform: scale(1.00);
+  -moz-transform:scale(1.00);
+}
+
+/* END LESSON LIST CSS */
+
+
 .browsehappy {
   margin: 0.2em 0;
   background: #ccc;
@@ -136,4 +187,33 @@ margin-right: auto;
   .nav, .pagination, .carousel, .panel-title a {
     cursor: pointer;
   }
+
+  .container_dnzb90 {
+    display: -moz-box !important;
+    display: -ms-flexbox !important;
+    display: -webkit-box !important;
+    display: -webkit-flex !important;
+    display: flex !important;
+    position: relative !important;
+    flex-direction: row !important;
+    flex-grow: 1 !important;
+    min-height: 144px !important;
+    margin: 0 auto !important;
+    background-color: #FFFFFF !important;
+    border-color: #D6D8DA !important;
+    border-style: solid !important;
+    border-width: 1px !important;
+    padding: 24px 48px !important;
+    box-sizing: border-box !important;
+    border-radius: 4px !important;
+    color: inherit !important;
+    text-decoration: none !important;
+    -webkit-flex-direction: row !important;
+    -ms-flex-direction: row !important;
+    -webkit-flex-grow: 1 !important;
+    -moz-box-sizing: border-box !important;
+    -webkit-box-orient: horizontal !important;
+    -webkit-box-direction: normal !important;
+    -ms-flex-positive: 1 !important;
+    }
 }
