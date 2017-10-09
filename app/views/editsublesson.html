@@ -1,1 +1,97 @@
 <p>This is the EditSublesson view.</p>
+<div class="row">
+  <div ng-repeat="b in vm.buttons">{{b}}</div>
+</div>
+<!-- To connect the UI objects with the backend (javascript) just make them have the same id -->
+
+  <div class="container" id="nexus_sequencer">
+    <div class="row">
+      <div class="col-md-3">
+      <div id="sequencer1"></div>
+
+    </div>
+    <div class="col-md-3">
+    <div id="sequencer2"></div>
+    
+  </div>
+  <div class="col-md-3">
+  <div id="sequencer3"></div>
+
+</div>
+<div class="col-md-3">
+<div id="sequencer4"></div>
+
+</div>
+    </div>
+    <div class="row">
+      <div class="col-md-3">
+      <div id="sequencer5"></div>
+
+    </div>
+    <div class="col-md-3">
+    <div id="sequencer6"></div>
+
+  </div>
+  <div class="col-md-3">
+  <div id="sequencer7"></div>
+
+</div>
+<div class="col-md-3">
+<div id="sequencer8"></div>
+
+</div>
+    </div>
+    <div class="row">
+      <div class="col-md-3">
+      <div id="sequencer9"></div>
+
+    </div>
+    <div class="col-md-3">
+    <div id="sequencer10"></div>
+
+  </div>
+  <div class="col-md-3">
+  <div id="sequencer11"></div>
+
+</div>
+<div class="col-md-3">
+<div id="sequencer12"></div>
+
+</div>
+    </div>
+    <div class="row">
+      <div class="col-md-3">
+      <div id="sequencer13"></div>
+
+    </div>
+    <div class="col-md-3">
+    <div id="sequencer14"></div>
+
+  </div>
+  <div class="col-md-3">
+  <div id="sequencer15"></div>
+
+</div>
+<div class="col-md-3">
+<div id="sequencer16"></div>
+ 2
+</div>
+    </div>
+  <div class="row">
+    <div class="col-md-2 col-md-offset-2">
+      <div id="edit-button"> edit </div>
+    </div>
+    <div class="col-md-2 col-md-offset-2">
+      <div id="new-button"> new </div>
+    </div>
+    <!-- <div class="col-md-2">
+      <div nexus-ui="stop-button" id="stop-button" ng-model="stopbutton"> Stop </div>
+    </div> -->
+    <!-- <div class="col-md-2" ng-controller="AboutCtrl"> -->
+      BPM: <input type="text" name="bpm" ng-change="displayBPM()" ng-model="bpm1" >
+    </div>
+  <div class="row">
+    <ul>
+      <li ng-repeat="lesson in lessons">{{ lesson.lesson1.sublesson1.stepseq1.btn1.pressed }}</li>
+    </ul>  </div>
+</div>
