@@ -8,7 +8,7 @@
  * Controller of the testappApp
  */
 angular.module('testappApp')
-  .controller('LessonslistCtrl', function($scope, firebaseFactory, $firebaseArray, $firebase, $firebaseObject){
+  .controller('LessonslistCtrl', function($scope, $location, firebaseFactory, $firebaseArray, $firebase, $firebaseObject){
     var ref = firebase.database().ref();
     var lessonRef = 42;
     $scope.data = $firebaseObject(ref);
@@ -36,4 +36,21 @@ angular.module('testappApp')
           break;
       }
     }
+    $scope.goToPlay = function(){
+        var param = {
+            lesson: $scope.lesson
+        }
+        console.log("inside play function");
+        $location.url("/PlaySublesson").search(param);
+    }
+
+    $scope.goToEdit = function(){
+        var param = {
+            lesson: $scope.lesson
+        }
+        console.log("inside edit function");
+
+        $location.url("/EditSublesson").search(param);
+    }
+
   });

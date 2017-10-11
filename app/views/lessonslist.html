@@ -16,13 +16,13 @@
       <md-list-item>
         <md-button ng-click="showPageContent(1)">
           <md-icon md-svg-src="images/3-4_Time.svg" class="avatar"></md-icon>
-          Dummy Lesson 1
+          Lesson 1
         </md-button>
       </md-list-item>
       <md-list-item>
         <md-button ng-click="showPageContent(2)">
           <md-icon md-svg-src="images/MusicIcon1.svg" class="avatar"></md-icon>
-          Dummy Lesson 2
+          Lesson 2
         </md-button>
       </md-list-item>
     </md-list>
@@ -33,34 +33,34 @@
 
     <md-list>
       <md-list-item>
-        <h3>Dummy Sublesson 1</h3>
+        <h3>Rhythmic Pattern 1</h3>
       </md-list-item>
 
       <md-list-item>
-        <md-button>
+        <md-button ng-click="goToPlay()">
           <md-icon md-svg-src="images/media-play.svg" class="avatar"></md-icon>
           Play
         </md-button>
       </md-list-item>
       <md-list-item>
-        <md-button>
-          <md-icon md-svg-src="images/ellipses.svg" class="avatar"></md-icon>
+        <md-button ng-click="goToEdit()">
+          <md-icon md-svg-src="images/ellipses.svg" class="avatar" ></md-icon>
           Edit
         </md-button>
       </md-list-item>
       <md-list-item>
-        <h3>Dummy Sublesson 2</h3>
+        <h3>Rhythmic Pattern 2</h3>
       </md-list-item>
 
       <md-list-item>
-        <md-button>
-          <md-icon md-svg-src="images/media-play.svg" class="avatar"></md-icon>
+        <md-button ng-click="goToPlay()">
+          <md-icon md-svg-src="images/media-play.svg" class="avatar" ng-click="goToPlay()"></md-icon>
           Play
         </md-button>
       </md-list-item>
       <md-list-item>
-        <md-button>
-          <md-icon md-svg-src="images/ellipses.svg" class="avatar"></md-icon>
+        <md-button ng-click="goToEdit()">
+          <md-icon md-svg-src="images/ellipses.svg" class="avatar" ng-click="goToEdit()"></md-icon>
           Edit
         </md-button>
       </md-list-item>

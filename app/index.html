@@ -14,6 +14,7 @@
     <script src="scripts/tone_scripts/nexusUI.js"></script>
     <script src="scripts/NexusUI.js"></script>
     <script src="bower_components/tone/build/Tone.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-route.js">
 
 
     <!-- Firebase -->
@@ -25,6 +26,7 @@
     <!-- build:css(.) styles/vendor.css -->
     <!-- bower:css -->
     <link rel="stylesheet" href="bower_components/angular-material/angular-material.css" />
+    <link rel="stylesheet" href="bower_components/angular-material-sidemenu/dest/angular-material-sidemenu.css" />
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css(.tmp) styles/main.css -->
@@ -34,13 +36,13 @@
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
   </head>
+
   <body ng-app="testappApp">
     <!--[if lte IE 8]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
 
     <!-- Add your site or application content here -->
-    <div class="header">
       <div class="navbar navbar-default" role="navigation">
         <div class="container">
           <div class="navbar-header">
@@ -55,35 +57,22 @@
               <!-- <li><a ng-href="#!/presentation">Presentation</a></li> -->
               <!-- <li><a ng-href="#!/students">Students</a></li> -->
               <li><a ng-href="#!/LessonsList">Lessons List</a></li>
-<<<<<<< HEAD
-              <!-- <li><a ng-href="#!/LessonPage">Lessons Page</a></li>
-              <li><a ng-href="#!/PlaySublesson">Play Sublesson</a></li> -->
-
-=======
               <li><a ng-href="#!/LessonPage">Lessons Page</a></li>
               <li><a ng-href="#!/PlaySublesson">Play Sublesson</a></li>
               <li><a ng-href="#!/EditSublesson">Edit Sublesson</a></li>
->>>>>>> master
+
             </ul>
         </div>
-      </div>
     </div>
 
-<<<<<<< HEAD
-
-
-    <div class="container">
-      <div ng-view=""></div>
-    </div>
-=======
     <!-- <div class="container"> -->
       <div ng-view="" style="width:100%"></div>
     <!-- </div> -->
->>>>>>> master
+
 
     <!-- <div class="footer">
       <div class="container">
-         <p><span class="glyphicon glyphicon-heart"></span> from the Yeoman team</p>
+         <!-- <p><span class="glyphicon glyphicon-heart"></span> from the Yeoman team</p>
       </div>
     </div> -->
 
@@ -111,14 +100,10 @@
     <script src="bower_components/firebase/firebase.js"></script>
     <script src="bower_components/angularfire/dist/angularfire.js"></script>
     <script src="bower_components/angular-aria/angular-aria.js"></script>
-<<<<<<< HEAD
     <script src="bower_components/angular-messages/angular-messages.js"></script>
     <script src="bower_components/angular-material/angular-material.js"></script>
     <script src="bower_components/angular-material-sidemenu/dest/angular-material-sidemenu.js"></script>
-=======
-    <!-- <script src="bower_components/angular-messages/angular-messages.js"></script> -->
-    <script src="bower_components/angular-material/angular-material.js"></script>
->>>>>>> master
+    <script src="bower_components/angular-audio/app/angular.audio.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 

@@ -19,7 +19,8 @@ angular
     'ngTouch',
     'ui.bootstrap',
     'firebase',
-    'ngMaterial'
+    'ngMaterial',
+    'ngAudio'
   ])
   .config(function ($routeProvider) {
     $routeProvider
