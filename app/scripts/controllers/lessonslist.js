@@ -49,8 +49,6 @@ angular.module('testappApp')
             lesson: $scope.lesson
         }
         console.log("inside edit function");
-
         $location.url("/EditSublesson").search(param);
     }
-
   });
