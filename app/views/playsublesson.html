@@ -1,62 +1,37 @@
-<p>This is the PlaySublesson view.</p>
-
-<!-- <div class="container" id="nexus_sequencer">
-  <div class="row new-sequencer-row">
-    <div class="col-md-3 col-md-offset-2">
-    <div id="sequencer"></div>
-
-  </div>
-</div>
-<div class="row" style="text-align: center; border: 3px solid green; margin-bottom: 20px;">
-  {{bpm}}
-</div>
-<div class="row new-sequencer-row" >
-  <div class="col-md-2 col-md-offset-2 new-sequencer-row">
-    <div id="start-button"> start </div>
-  </div>
-  <div class="col-md-2 col-md-offset-2 new-sequencer-row">
-    <div id="stop-button"> stop </div>
-  </div>
-</div>
-</div> -->
-
-<!-- ****************** NEW CODE ******************** -->
-
-<button ng-click="spinIt()">Spin it</button>
-
-  <button ng-click="hideIt()">Hide it</button>
-
-  <button ng-click="showIt()">Show it</button>
-
   <div>
+    <div layout="row" layout-align="center center">
+      <div layout="column" layout-align="center center">
+        <h2> Lesson: {{ lesson }} </h2><br>
+        <h3> Rhythmic Pattern: {{ rhythmicPattern }} </h3>
+      </div>
+    </div>
     <div layout="row" layout-align="center center">
       <div layout="column">
         <button class="button" id="animation-target1"></button>
-        <button class="button" id="animation-target2"></button>
-        <button class="button" id="animation-target3"></button>
-        <button class="button" id="animation-target4"></button>
-      </div>
-      <div layout="column">
         <button class="button" id="animation-target5"></button>
-        <button class="button" id="animation-target6"></button>
-        <button class="button" id="animation-target7"></button>
-        <button class="button" id="animation-target8"></button>
-      </div>
-      <div layout="column">
         <button class="button" id="animation-target9"></button>
-        <button class="button" id="animation-target10"></button>
-        <button class="button" id="animation-target11"></button>
-        <button class="button" id="animation-target12"></button>
+        <button class="button" id="animation-target13"></button>
       </div>
       <div layout="column">
-        <button class="button" id="animation-target13"></button>
+        <button class="button" id="animation-target2"></button>
+        <button class="button" id="animation-target6"></button>
+        <button class="button" id="animation-target10"></button>
         <button class="button" id="animation-target14"></button>
+      </div>
+      <div layout="column">
+        <button class="button" id="animation-target3"></button>
+        <button class="button" id="animation-target7"></button>
+        <button class="button" id="animation-target11"></button>
         <button class="button" id="animation-target15"></button>
+      </div>
+      <div layout="column">
+        <button class="button" id="animation-target4"></button>
+        <button class="button" id="animation-target8"></button>
+        <button class="button" id="animation-target12"></button>
         <button class="button" id="animation-target16"></button>
       </div>
       <div layout="column">
-        <button ng-click="playLesson()">PLAY</button>
-        <div id="start-button"> start </div>
-        <div id="stop-button"> stop </div>
+        <md-button ng-click="playLesson()"> play </md-button>
+        <md-button ng-click="stopLesson()"> stop </md-button>
       </div>
   </div>

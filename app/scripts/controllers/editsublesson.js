@@ -8,7 +8,7 @@
  * Controller of the testappApp
  */
 angular.module('testappApp')
-  .controller('EditsublessonCtrl', function ($scope, firebaseFactory, $firebaseArray, $firebase, $firebaseObject) {
+  .controller('EditsublessonCtrl', function ($rootScope, $location, dataService, $scope, firebaseFactory, $firebaseArray, $firebase, $firebaseObject) {
     this.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',
@@ -49,8 +49,12 @@ angular.module('testappApp')
       pushSequencer();
     });
     newButton.on('change', function(v){
-      addSeq();
+      // addSeq();
+      dataService.sendData('1', '1');
+      $location.path('/PlaySublesson');
+      $scope.$apply();
     });
+
     function pushSequencer() {
       var values = [];
 
@@ -72,4 +76,11 @@ angular.module('testappApp')
 }
 console.log(values);
 }
+
+$scope.$on('data_shared',function(){
+    var data = dataService.getLesson();
+    console.log(data);
+});
+
+
   });
