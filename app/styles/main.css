@@ -48,6 +48,19 @@ md-list-item > button {
 
 /* END LESSON LIST CSS */
 
+/* RHYTHMIC EVALUATION CSS */
+.feedbackTable {
+  background-color: white;
+}
+
+.thead1 {
+  background-color: #d9d9d9;
+  color: black;
+}
+.td1 {
+  font-size: 36px;
+}
+/* END RHYTHMIC EVALUATION CSS */
 
 .browsehappy {
   margin: 0.2em 0;
@@ -167,9 +180,9 @@ margin-right: auto;
 
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 768px) {
-  .container {
+  /*.container {
     max-width: 730px;
-  }
+  }*/
 
   /* Remove the padding we set earlier */
   .header,
