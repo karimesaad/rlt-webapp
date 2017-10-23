@@ -7,14 +7,12 @@
     <meta name="viewport" content="width=device-width">
 
     <script src="bower_components/jquery/dist/jquery.min.js"></script>
-    <script src="scripts/tone_scripts/draggabilly.js"></script>
-    <script src="https://tonejs.github.io/Logo/build/Logo.js"></script>
-    <script src="scripts/tone_scripts/StartAudioContext.js"></script>
-    <script src="scripts/tone_scripts/Interface.js"></script>
-    <script src="scripts/tone_scripts/nexusUI.js"></script>
     <script src="scripts/NexusUI.js"></script>
-    <script src="bower_components/tone/build/Tone.js"></script>
+
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-route.js"></script>
+
+    <!-- Firebase -->
+
     <script src="https://www.gstatic.com/firebasejs/3.6.6/firebase.js"></script>
     <script src="bower_components/bounce.js/bounce.min.js"></script>
     <!-- AngularFire -->
@@ -31,7 +29,8 @@
     <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.css">
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css"
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
   </head>
 
@@ -55,9 +54,12 @@
               <!-- <li><a ng-href="#!/presentation">Presentation</a></li> -->
               <!-- <li><a ng-href="#!/students">Students</a></li> -->
               <li><a ng-href="#!/LessonsList">Lessons List</a></li>
+              <li><a ng-href="#!/StudentPerformance">Student Performance</a></li>
+              <li><a ng-href="#!/RhythmEvaluation">Rhythm Evaluation</a></li>
               <li><a ng-href="#!/LessonPage">Lessons Page</a></li>
               <li><a ng-href="#!/PlaySublesson">Play Sublesson</a></li>
               <li><a ng-href="#!/EditSublesson">Edit Sublesson</a></li>
+
 
             </ul>
         </div>
@@ -122,10 +124,11 @@
         <script src="scripts/controllers/lessonpage.js"></script>
 
         <script src="scripts/controllers/playsublesson.js"></script>
-
+        <script src="scripts/controllers/studentperformance.js"></script>
         <script src="scripts/controllers/editsublesson.js"></script>
-
         <script src="scripts/services/dataservice.js"></script>
+        <script src="scripts/controllers/rhythmevaluation.js"></script>
+
         <!-- endbuild -->
 </body>
 </html>

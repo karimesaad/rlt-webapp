@@ -69,6 +69,16 @@ angular
         controller: 'EditsublessonCtrl',
         controllerAs: 'EditSublesson'
       })
+      .when('/StudentPerformance', {
+        templateUrl: 'views/studentperformance.html',
+        controller: 'StudentperformanceCtrl',
+        controllerAs: 'StudentPerformance'
+      })
+      .when('/RhythmEvaluation', {
+        templateUrl: 'views/rhythmevaluation.html',
+        controller: 'RhythmevaluationCtrl',
+        controllerAs: 'RhythmEvaluation'
+      })
       .otherwise({
         redirectTo: '/'
       });
