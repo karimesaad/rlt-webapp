@@ -1,0 +1,42 @@
+<!-- <p>This is the RhythmEvaluation view.</p> -->
+
+<div class="container" ng-app="sortApp" ng-controller="RhythmevaluationCtrl">
+
+<div class="feedbackTable">
+
+  <!-- Sort Type: {{ sortType }}
+
+  Sort Reverse: {{ sortReverse }}
+
+  Search Query: {{ searchName }} -->
+
+    <table class="table table-hover" flex>
+
+      <thead class="thead1">
+        <tr>
+          <td class="td1"> <a href="#!/RhythmEvaluation" ng-click="sortType = 'name1'">
+            <span ng-show="sortType == 'name1'" class="fa fa-caret-down"></span>
+            First Name
+          </a></td>
+          <td class="td1"> <a href="#!/RhythmEvaluation" ng-click="sortType = 'name2'">
+            <span ng-show="sortType == 'name2'" class="fa fa-caret-down"></span>
+            Last Name
+          </a></td>
+          <td class="td1"> <a href="#!/RhythmEvaluation" ng-click="sortType = 'score'">
+            <span ng-show="sortType == 'score'" class="fa fa-caret-down"></span>
+            Score
+          </a></td>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr ng-repeat="performance in students | orderBy:sortType:sortReverse" >
+          <td class="td1">{{ performance.name1 }}</td>
+          <td class="td1">{{ performance.name2 }}</td>
+          <td class="td1">{{ performance.score }}</td>
+        </tr>
+      </tbody>
+
+    </table>
+
+</div>

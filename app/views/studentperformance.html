@@ -1,0 +1,39 @@
+<!-- <p>This is the StudentPerformance view.</p> -->
+
+
+<!-- <script src="bower_components/angular/angular.min.js"></script> -->
+<!-- <script src="bower_components/angular-animate/angular-animate.js"></script>
+<script src="bower_components/angular-aria/angular-aria.min.js"></script>
+<script src="bower_components/angular-material/angular-material.min.js"></script> -->
+
+<md-toolbar>
+  <h1>Students</h1>
+</md-toolbar>
+
+<div ng-controller="StudentperformanceCtrl" layout="row" flex>
+  <md-sidenav md-is-locked-open="true" class="md-whiteframe-4dp">
+    <md-list>
+      <md-list-item>
+        <md-button ng-click="">
+          <md-icon md-svg-src="images/Ronaldo.svg" class="avatar"></md-icon>
+          Ronaldo
+        </md-button>
+      </md-list-item>
+      <md-list-item>
+        <md-button ng-click="">
+          <md-icon md-svg-src="images/McDonald.svg" class="avatar"></md-icon>
+          McDonaldo
+        </md-button>
+      </md-list-item>
+    </md-list>
+  </md-sidenav>
+
+  <md-content id="content" flex>
+    <h1>{{studentName}}</h1>
+
+
+
+
+  </md-content>
+  <!-- <div>Icons made by <a href="http://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div> -->
+</div>
