@@ -12,23 +12,48 @@
 
 <div ng-controller="LessonslistCtrl" layout="row" flex>
   <md-sidenav md-is-locked-open="true" class="md-whiteframe-4dp">
-    <md-list>
-      <md-list-item>
+
         <md-button ng-click="showPageContent(1)">
           <md-icon md-svg-src="images/3-4_Time.svg" class="avatar"></md-icon>
           Lesson 1
         </md-button>
-      </md-list-item>
-      <md-list-item>
+
         <md-button ng-click="showPageContent(2)">
           <md-icon md-svg-src="images/MusicIcon1.svg" class="avatar"></md-icon>
           Lesson 2
         </md-button>
-      </md-list-item>
-    </md-list>
-  </md-sidenav>
 
-  <md-content id="content" flex>
+        <md-button ng-click="addNewLesson($event)">
+          New Lesson
+        </md-button>
+
+    <table>
+      <tbody>
+        <tr ng-repeat="lesson in lessons">
+          <td><md-button>{{ lesson.name }}</md-button></td>
+        </tr>
+      </tbody>
+    </table>
+    <!-- <md-button ng-click="addNewLesson($event)">
+      New Lesson
+    </md-button> -->
+    <form class="form-horizontal" role="form" ng-submit="addRow()">
+    	<div class="form-group">
+    		<label class="col-md-2 control-label">Name</label>
+    		<div class="col-md-4">
+    			<input type="text" class="form-control" name="name"
+    				ng-model="name" />
+    		</div>
+    	  <div class="form-group">
+    		  <div style="padding-left:110px">
+    			  <input type="submit" value="Submit" class="btn btn-primary"/>
+    		  </div>
+    	  </div>
+      </div>
+    </form>
+</md-sidenav>
+
+<md-content id="content" flex>
     <h1>Lesson Name: {{lesson}}</h1>
 
     <md-list>
@@ -62,6 +87,11 @@
         <md-button ng-click="goToEdit()">
           <md-icon md-svg-src="images/ellipses.svg" class="avatar" ng-click="goToEdit()"></md-icon>
           Edit
+        </md-button>
+      </md-list-item>
+      <md-list-item>
+        <md-button ng-click="addNewRP($event, $scope.lessonSelect)">
+          New Rhythmic Pattern
         </md-button>
       </md-list-item>
     </md-list>
