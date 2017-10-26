@@ -13,10 +13,20 @@ angular.module('testappApp')
     var lessonRef = 42;
     $scope.data = $firebaseObject(ref);
     $scope.lessons = [];
+    var lessonCnt;
 
     $scope.data.$loaded()
       .then(function() {
         lessonRef = $scope.data.lessons;
+        lessonCnt = lessonRef.numLessons;
+
+        for(var i = 1; i <= lessonCnt; i++){
+          console.log("hello");
+          var nameRef = firebase.database().ref('/lessons/lesson' + i + '/name');
+          nameRef.on('value', function(snapshot) {
+            $scope.lessons.push({'name': snapshot.val()});
+          });
+        }
       } )
       .catch(function(err) {
         console.error(err);
@@ -61,8 +71,10 @@ angular.module('testappApp')
     });
     var updateNumLesson = {};
     updateNumLesson['/lessons/numLessons/'] = lessonCnt;
-    return firebase.database().ref().update(updateNumLesson);
+    firebase.database().ref().update(updateNumLesson);
     console.log(result);
+    window.location.reload();
+    console.log("refresh check");
 
     // $scope.lessons.push({ 'name':$scope.name});
     // $scope.name = '';
@@ -74,14 +86,7 @@ angular.module('testappApp')
 
 // $scope.addRow = function(){
 //   var lessonCnt = lessonRef.numLessons;
-//     for(var i = 1; i <= lessonCnt; i++){
 //
-//       var nameRef = firebase.database().ref('/lessons/lesson' + i + '/name');
-//       nameRef.on('value', function(snapshot) {
-//         $scope.lessons.push({'name': snapshot.val()});
-//       });
-//
-//     }
 //     lessonCnt = lessonCnt + 1;
 //     $scope.lessons.push({ 'name':$scope.name})
 //

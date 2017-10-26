@@ -10,11 +10,10 @@
   <h1 style="text-align: center">Play or Edit Lessons</h1>
 </md-toolbar>
 
-
 <div ng-controller="LessonslistCtrl" layout="row" flex>
   <md-sidenav md-is-locked-open="true" class="md-whiteframe-4dp">
 
-        <md-button ng-click="showPageContent(1)">
+        <!-- <md-button ng-click="showPageContent(1)">
           <md-icon md-svg-src="images/3-4_Time.svg" class="avatar"></md-icon>
           Lesson 1
         </md-button>
@@ -26,7 +25,7 @@
 
         <md-button ng-click="addNewLesson($event)">
           New Lesson
-        </md-button>
+        </md-button> -->
 
     <table>
       <tbody>
@@ -38,7 +37,7 @@
     <!-- <md-button ng-click="addNewLesson($event)">
       New Lesson
     </md-button> -->
-    <form class="form-horizontal" role="form" ng-submit="addRow()">
+    <!-- <form class="form-horizontal" role="form" ng-submit="addRow()">
     	<div class="form-group">
     		<label class="col-md-2 control-label">Name</label>
     		<div class="col-md-4">
@@ -51,8 +50,12 @@
     		  </div>
     	  </div>
       </div>
-    </form>
+    </form> -->
+    <md-button ng-click="addNewLesson($event)">
+      New Lesson
+    </md-button>
 </md-sidenav>
+
 
 <md-content id="content" flex>
     <h1>Lesson Name: {{lesson}}</h1>
