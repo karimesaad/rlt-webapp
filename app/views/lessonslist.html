@@ -30,7 +30,7 @@
     <table>
       <tbody>
         <tr ng-repeat="lesson in lessons">
-          <td><md-button>{{ lesson.name }}</md-button></td>
+          <td><md-button ng-click="lessonSelected(lesson.num)">{{ lesson.name }}</md-button></td>
         </tr>
       </tbody>
     </table>

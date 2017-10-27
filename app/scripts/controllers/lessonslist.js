@@ -8,7 +8,7 @@
  * Controller of the testappApp
  */
 angular.module('testappApp')
-  .controller('LessonslistCtrl', function($scope, $location, $mdDialog, firebaseFactory, $firebaseArray, $firebase, $firebaseObject){
+  .controller('LessonslistCtrl', function(dataService, $scope, $location, $mdDialog, firebaseFactory, $firebaseArray, $firebase, $firebaseObject){
     var ref = firebase.database().ref();
     var lessonRef = 42;
     $scope.data = $firebaseObject(ref);
@@ -24,7 +24,7 @@ angular.module('testappApp')
           console.log("hello");
           var nameRef = firebase.database().ref('/lessons/lesson' + i + '/name');
           nameRef.on('value', function(snapshot) {
-            $scope.lessons.push({'name': snapshot.val()});
+            $scope.lessons.push({'name': snapshot.val(), 'num': i });
           });
         }
       } )
@@ -101,6 +101,10 @@ angular.module('testappApp')
 //     return firebase.database().ref().update(updateNumLesson);
 //    };
 
+    $scope.lessonSelected = function(lessonNum){
+      dataService.sendLesson(lessonNum);
+      console.log("lesson chosen is: "+lessonNum);
+    }
 
     $scope.goToPlay = function(){
         var param = {
