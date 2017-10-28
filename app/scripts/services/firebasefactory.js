@@ -14,7 +14,9 @@ angular.module('testappApp')
       authDomain: "rhythmic-learning-tool.firebaseapp.com",
       databaseURL: "https://rhythmic-learning-tool.firebaseio.com",
     };
-    firebase.initializeApp(config);
+    if (!firebase.apps.length) {
+      firebase.initializeApp(config);
+    }
 
     var rootRef = firebase.database().ref();
 

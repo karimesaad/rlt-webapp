@@ -8,7 +8,12 @@
  * Controller of the testappApp
  */
 angular.module('testappApp')
-  .controller('LessonslistCtrl', function($scope, $location, $mdDialog, firebaseFactory, $firebaseArray, $firebase, $firebaseObject){
+  .controller('LessonslistCtrl', function($scope, $location, $mdDialog, $firebaseArray, $firebase, $firebaseObject){
+    this.awesomeThings = [
+      'HTML5 Boilerplate',
+      'AngularJS',
+      'Karma'
+    ];
     var ref = firebase.database().ref();
     var lessonRef = 42;
     $scope.data = $firebaseObject(ref);
