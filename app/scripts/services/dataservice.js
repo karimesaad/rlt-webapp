@@ -13,6 +13,16 @@ angular.module('testappApp')
     service.lesson = 1;
     service.rhythmicPattern = 1;
 
+    service.sendLesson = function(lesson){
+      this.lesson = lesson;
+      console.log("current global lesson variable: " + lesson);
+      $rootScope.$broadcast('lesson_shared');
+    };
+    service.sendRhythmicPattern = function(rhythmicPattern){
+      this.lesson = lesson;
+      this.rhythmicPattern = rhythmicPattern;
+      $rootScope.$broadcast('rp_shared');
+    };
     service.sendData = function(lesson, rhythmicPattern){
       this.lesson = lesson;
       this.rhythmicPattern = rhythmicPattern;

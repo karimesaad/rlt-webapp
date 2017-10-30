@@ -8,20 +8,33 @@
  * Controller of the testappApp
  */
 angular.module('testappApp')
-  .controller('LessonslistCtrl', function($scope, $location, $mdDialog, $firebaseArray, $firebase, $firebaseObject){
+  .controller('LessonslistCtrl', function(dataService, firebaseFactory, $scope, $location, $mdDialog, $firebaseArray, $firebase, $firebaseObject){
     this.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',
       'Karma'
     ];
+
     var ref = firebase.database().ref();
     var lessonRef = 42;
     $scope.data = $firebaseObject(ref);
     $scope.lessons = [];
+    $scope.RPs = [];
+    var lessonCnt;
+
 
     $scope.data.$loaded()
       .then(function() {
         lessonRef = $scope.data.lessons;
+        lessonCnt = lessonRef.numLessons;
+
+        for(var i = 1; i <= lessonCnt; i++){
+          console.log("hello");
+          var nameRef = firebase.database().ref('/lessons/lesson' + i + '/name');
+          nameRef.on('value', function(snapshot) {
+            $scope.lessons.push({'name': snapshot.val(), 'num': i, 'RPcount' : 0 });
+          });
+        }
       } )
       .catch(function(err) {
         console.error(err);
@@ -66,8 +79,10 @@ angular.module('testappApp')
     });
     var updateNumLesson = {};
     updateNumLesson['/lessons/numLessons/'] = lessonCnt;
-    return firebase.database().ref().update(updateNumLesson);
+    firebase.database().ref().update(updateNumLesson);
     console.log(result);
+    window.location.reload();
+    console.log("refresh check");
 
     // $scope.lessons.push({ 'name':$scope.name});
     // $scope.name = '';
@@ -79,14 +94,7 @@ angular.module('testappApp')
 
 // $scope.addRow = function(){
 //   var lessonCnt = lessonRef.numLessons;
-//     for(var i = 1; i <= lessonCnt; i++){
 //
-//       var nameRef = firebase.database().ref('/lessons/lesson' + i + '/name');
-//       nameRef.on('value', function(snapshot) {
-//         $scope.lessons.push({'name': snapshot.val()});
-//       });
-//
-//     }
 //     lessonCnt = lessonCnt + 1;
 //     $scope.lessons.push({ 'name':$scope.name})
 //
@@ -101,6 +109,15 @@ angular.module('testappApp')
 //     return firebase.database().ref().update(updateNumLesson);
 //    };
 
+    $scope.lessonSelected = function(lessonNum){
+      dataService.sendLesson(lessonNum);
+      console.log("lesson chosen is: "+lessonNum);
+        $scope.currLessons = dataService.getLesson();
+    }
+
+    $scope.RPSelected = function(RPnum){
+
+    }
 
     $scope.goToPlay = function(){
         var param = {
@@ -117,4 +134,6 @@ angular.module('testappApp')
         console.log("inside edit function");
         $location.url("/EditSublesson").search(param);
     }
+
+
   });
