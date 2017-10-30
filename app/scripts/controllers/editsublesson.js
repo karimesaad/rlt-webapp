@@ -94,26 +94,21 @@ angular.module('testappApp')
       "btn64": 0
     }
 
-    var newSequencer1 = [];
-    var newSequencer2 = [];
-    var newSequencer3 = [];
-    var newSequencer4 = [];
+    var newSequencers = [];
 
     var seqNumStart;
     var seqNumEnd;
 
     $scope.sequencers = ['1', '2', '3', '4'];
     $scope.currSequencer = $scope.sequencers[0];
-
-    $scope.closeDropDown = function() {
-      $scope.isopen = false;
-    };
+    $scope.timeSignatures = ['3/4', '4/4'];
+    $scope.currTimeSignature = $scope.timeSignatures[1];
 
     $scope.quarterDisabled = false;
     $scope.halfDisabled = false;
     $scope.wholeDisabled = false;
-    var btnColumn;
 
+    var btnColumn;
 
     /*********** GET DATA PASSED FROM PREVIOUS PAGE ***********/
     $scope.lesson = dataService.getLesson();
@@ -161,14 +156,14 @@ angular.module('testappApp')
         buttonSeq = 'btn' + (btn-48);
         sequencer[button] = sequencerRef4[buttonSeq];
       }
-      console.log(sequencer);
-      $scope.colorGrid(1);
-      newSequencer1 = sequencerRef1;
-      newSequencer2 = sequencerRef2;
-      newSequencer3 = sequencerRef3;
-      newSequencer4 = sequencerRef4;
-      console.log(newSequencer1['btn'+1]);
+      // console.log(sequencer);
 
+      newSequencers[1] = sequencerRef1;
+      newSequencers[2] = sequencerRef2;
+      newSequencers[3] = sequencerRef3;
+      newSequencers[4] = sequencerRef4;
+
+      $scope.colorGrid(1);
 
     })
     .catch(function(err) {
@@ -180,9 +175,8 @@ angular.module('testappApp')
     $scope.colorGrid = function(seqNum){
       if(typeof seqNum === 'undefined'){
         seqNum = $scope.currSequencer;
-        console.log(seqNum);
       }
-      console.log($scope.currSequencer);
+      console.log(seqNum);
       seqNumStart = (seqNum*16)-15;   // if seqNum == 1, then seqNumStart=(1*16)-15= 1. if seqNum == 2, then seqNumStart=(2*16)-15= 17, etc
       seqNumEnd = seqNum * 16;
 
@@ -218,304 +212,201 @@ angular.module('testappApp')
       }
     }
 
+
+    var tmpBtn1;
+    var tmpBtn2;
+
     $scope.buttonSelected = function(currBtn){
+
+      $scope.selectedBtn = currBtn;
+
+      // console.log($scope.rowCount(currBtn));
       $scope.quarterDisabled = false;
       $scope.halfDisabled = false;
       $scope.wholeDisabled = false;
+
+      updateCheckbox(currBtn);
+
       btnColumn = currBtn%4;  // button columns: [1] [2] [3] [0]
-      if(btnColumn != 1){
+      if(btnColumn != 1){  //middle columns
         $scope.wholeDisabled = true;
-        if(btnColumn == 0){
+        if(btnColumn == 0){  //last column
           $scope.halfDisabled = true;
         }
       }
-      console.log("******");
-
-      console.log($scope.currSequencer);
-      switch($scope.currSequencer){
+      switch(btnColumn){
         case 1:
-          console.log("here1");
-          switch(btnColumn){
-            case 1:
-              if(newSequencer1['btn'+btn+1] == 0){
-                console.log(newSequencer1['btn'+btn+1]);
-                $scope.halfDisabled = false;
-              }
-              if(newSequencer1['btn'+btn+2] == 0 && newSequencer1['btn'+btn+3] == 0){
-                $scope.wholeDisabled = false;
-              }
-            break;
-            case 2:
-              //check if previous is a half, if yes then disable everything
-              // $scope.quarterDisabled = true;
-              // $scope.halfDisabled = true;
-              //       else if next one is a quarter or half, then only allow quarter
-              //          $scope.quarterDisabled = false;
-              //            else if it is a rest, then also allow halfs
-              //                $scope.halfDisabled = false;
-              if(newSequencer1['btn'+btn-1] == 2){
-                $scope.quarterDisabled = true;
-                $scope.halfDisabled = true;
-              } else {
-                if(newSequencer1['btn'+btn+1] == 1 || newSequencer1['btn'+btn+1] == 2){
-                  $scope.quarterDisabled = false;
-                } else {
-                  if(newSequencer1['btn'+btn+1] == 0)
-                  $scope.halfDisabled = false;
-                }
-              }
-            break;
-            case 3:
-              //check if previous is a half, if yes then disable everything
-              //        $scope.quarterDisabled = true;
-              //        $scope.halfDisabled = true;
-              //      else if next one is a quarter, then only allow quarter
-              //        $scope.quarterDisabled = false;
-              //            else if it is a rest, then also allow halfs
-              //        $scope.halfDisabled = false;
-              if(newSequencer1['btn'+btn-1] == 2){
-                 $scope.quarterDisabled = true;
-                 $scope.halfDisabled = true;
-              } else {
-                if(newSequencer1['btn'+btn+1] == 1){
-                  $scope.quarterDisabled = false;
-                } else {
-                  if(newSequencer1['btn'+btn+1] == 0){
-                  $scope.halfDisabled = false;
-                  }
-                }
-              }
-            break;
-            case 0:
-            //check if previous is a half, if yes then disable everything
-            //        $scope.quarterDisabled = true;
-            //       else allow quarters and rests
-            //        $scope.quarterDisabled = false;
-              if(newSequencer1['btn'+btn-1] == 2){
-                $scope.quarterDisabled = true;
-              } else {
-                $scope.quarterDisabled = false;
-              }
-            break;
+          tmpBtn1 = currBtn+1;
+          if(newSequencers[$scope.currSequencer]['btn'+tmpBtn1] == 0){
+            $scope.halfDisabled = false;
+            $scope.quarterDisabled = false;
+          } else {
+            $scope.halfDisabled = true;
+            $scope.quarterDisabled = false;
           }
-        break;
+          tmpBtn1 = currBtn+2;
+          tmpBtn2 = currBtn+3;
+          if(newSequencers[$scope.currSequencer]['btn'+tmpBtn1] == 0 && newSequencers[$scope.currSequencer]['btn'+tmpBtn2] == 0){
+            $scope.wholeDisabled = false;
+          } else {
+            $scope.wholeDisabled = true;
+          }
+          break;
         case 2:
-        console.log("here2");
-          switch(btnColumn){
-            case 1:
-              //check if the next one is a rest, if yes allow halfs
-              //$scope.halfDisabled = false;
-              //  if the next two are also rests, allow whole
-              //$scope.wholeDisabled = false;
-              if(newSequencer2['btn'+btn+1] == 0){
-                $scope.halfDisabled = false;
-              }
-              if(newSequencer2['btn'+btn+2] == 0 && newSequencer2['btn'+btn+3] == 0){
-                $scope.wholeDisabled = false;
-              }
-            break;
-            case 2:
-              //check if previous is a half, if yes then disable everything
-              // $scope.quarterDisabled = true;
-              // $scope.halfDisabled = true;
-              //       else if next one is a quarter or half, then only allow quarter
-              //          $scope.quarterDisabled = false;
-              //            else if it is a rest, then also allow halfs
-              //                $scope.halfDisabled = false;
-              if(newSequencer2['btn'+btn-1] == 2){
-                $scope.quarterDisabled = true;
-                $scope.halfDisabled = true;
-              } else {
-                if(newSequencer2['btn'+btn+1] == 1 || newSequencer2['btn'+btn+1] == 2){
-                  $scope.quarterDisabled = false;
-                } else {
-                  if(newSequencer2['btn'+btn+1] == 0)
-                  $scope.halfDisabled = false;
-                }
-              }
-
-            break;
-            case 3:
-              //check if previous is a half, if yes then disable everything
-              //        $scope.quarterDisabled = true;
-              //        $scope.halfDisabled = true;
-              //      else if next one is a quarter, then only allow quarter
-              //        $scope.quarterDisabled = false;
-              //            else if it is a rest, then also allow halfs
-              //        $scope.halfDisabled = false;
-              if(newSequencer2['btn'+btn-1] == 2){
-                 $scope.quarterDisabled = true;
-                 $scope.halfDisabled = true;
-              } else {
-                if(newSequencer2['btn'+btn+1] == 1){
-                  $scope.quarterDisabled = false;
-                } else {
-                  if(newSequencer2['btn'+btn+1] == 0){
-                  $scope.halfDisabled = false;
-                  }
-                }
-              }
-
-            break;
-            case 0:
-              //check if previous is a half, if yes then disable everything
-              //        $scope.quarterDisabled = true;
-              //       else allow quarters and rests
-              //        $scope.quarterDisabled = false;
-              if(newSequencer2['btn'+btn-1] == 2){
-                $scope.quarterDisabled = true;
-              } else {
-                $scope.quarterDisabled = false;
-              }
-            break;
+          tmpBtn1 = currBtn-1;
+          if(newSequencers[$scope.currSequencer]['btn'+tmpBtn1] == 2 || newSequencers[$scope.currSequencer]['btn'+tmpBtn1] == 4){
+            $scope.quarterDisabled = true;
+            $scope.halfDisabled = true;
           }
-        break;
+          tmpBtn1 = currBtn+1;
+          if(newSequencers[$scope.currSequencer]['btn'+tmpBtn1] == 1 || newSequencers[$scope.currSequencer]['btn'+tmpBtn1] == 2){
+            $scope.quarterDisabled = false;
+            $scope.halfDisabled = true;
+          }
+          if(newSequencers[$scope.currSequencer]['btn'+tmpBtn1] == 0){
+            $scope.halfDisabled = false;
+            $scope.quarterDisabled = false;
+          }
+          break;
         case 3:
-        console.log("here3");
-          switch(btnColumn){
-            case 1:
-              //check if the next one is a rest, if yes allow halfs
-              //$scope.halfDisabled = false;
-              //  if the next two are also rests, allow whole
-              //$scope.wholeDisabled = false;
-              if(newSequencer3['btn'+btn+1] == 0){
-                $scope.halfDisabled = false;
-              }
-              if(newSequencer3['btn'+btn+2] == 0 && newSequencer3['btn'+btn+3] == 0){
-                $scope.wholeDisabled = false;
-              }
-            break;
-            case 2:
-              //check if previous is a half, if yes then disable everything
-              // $scope.quarterDisabled = true;
-              // $scope.halfDisabled = true;
-              //       else if next one is a quarter or half, then only allow quarter
-              //          $scope.quarterDisabled = false;
-              //            else if it is a rest, then also allow halfs
-              //                $scope.halfDisabled = false;
-              if(newSequencer3['btn'+btn-1] == 2){
-                $scope.quarterDisabled = true;
-                $scope.halfDisabled = true;
-              } else {
-                if(newSequencer3['btn'+btn+1] == 1 || newSequencer3['btn'+btn+1] == 2){
-                  $scope.quarterDisabled = false;
-                } else {
-                  if(newSequencer3['btn'+btn+1] == 0)
-                  $scope.halfDisabled = false;
-                }
-              }
-
-            break;
-            case 3:
-              //check if previous is a half, if yes then disable everything
-              //        $scope.quarterDisabled = true;
-              //        $scope.halfDisabled = true;
-              //      else if next one is a quarter, then only allow quarter
-              //        $scope.quarterDisabled = false;
-              //            else if it is a rest, then also allow halfs
-              //        $scope.halfDisabled = false;
-              if(newSequencer3['btn'+btn-1] == 2){
-                 $scope.quarterDisabled = true;
-                 $scope.halfDisabled = true;
-              } else {
-                if(newSequencer3['btn'+btn+1] == 1){
-                  $scope.quarterDisabled = false;
-                } else {
-                  if(newSequencer3['btn'+btn+1] == 0){
-                  $scope.halfDisabled = false;
-                  }
-                }
-              }
-
-            break;
-            case 0:
-              //check if previous is a half, if yes then disable everything
-              //        $scope.quarterDisabled = true;
-              //       else allow quarters and rests
-              //        $scope.quarterDisabled = false;
-              if(newSequencer3['btn'+btn-1] == 2){
-                $scope.quarterDisabled = true;
-              } else {
-                $scope.quarterDisabled = false;
-              }
-            break;
+          tmpBtn1 = currBtn-1;
+          if(newSequencers[$scope.currSequencer]['btn'+tmpBtn1] == 2){
+             $scope.quarterDisabled = true;
+             $scope.halfDisabled = true;
           }
-        break;
-        case 4:
-        console.log("here4");
-          switch(btnColumn){
-            case 1:
-            //check if the next one is a rest, if yes allow halfs
-            //$scope.halfDisabled = false;
-            //  if the next two are also rests, allow whole
-            //$scope.wholeDisabled = false;
-            if(newSequencer4['btn'+btn+1] == 0){
-              $scope.halfDisabled = false;
-            }
-            if(newSequencer4['btn'+btn+2] == 0 && newSequencer4['btn'+btn+3] == 0){
-              $scope.wholeDisabled = false;
-            }
-
-            break;
-            case 2:
-              //check if previous is a half, if yes then disable everything
-              // $scope.quarterDisabled = true;
-              // $scope.halfDisabled = true;
-              //       else if next one is a quarter or half, then only allow quarter
-              //          $scope.quarterDisabled = false;
-              //            else if it is a rest, then also allow halfs
-              //                $scope.halfDisabled = false;
-              if(newSequencer4['btn'+btn-1] == 2){
-                $scope.quarterDisabled = true;
-                $scope.halfDisabled = true;
-              } else {
-                if(newSequencer4['btn'+btn+1] == 1 || newSequencer4['btn'+btn+1] == 2){
-                  $scope.quarterDisabled = false;
-                } else {
-                  if(newSequencer4['btn'+btn+1] == 0)
-                  $scope.halfDisabled = false;
-                }
-              }
-
-            break;
-            case 3:
-              //check if previous is a half, if yes then disable everything
-              //        $scope.quarterDisabled = true;
-              //        $scope.halfDisabled = true;
-              //      else if next one is a quarter, then only allow quarter
-              //        $scope.quarterDisabled = false;
-              //            else if it is a rest, then also allow halfs
-              //        $scope.halfDisabled = false;
-              if(newSequencer4['btn'+btn-1] == 2){
-                 $scope.quarterDisabled = true;
-                 $scope.halfDisabled = true;
-              } else {
-                if(newSequencer4['btn'+btn+1] == 1){
-                  $scope.quarterDisabled = false;
-                } else {
-                  if(newSequencer4['btn'+btn+1] == 0){
-                  $scope.halfDisabled = false;
-                  }
-                }
-              }
-            break;
-            case 0:
-              //check if previous is a half, if yes then disable everything
-              //        $scope.quarterDisabled = true;
-              //       else allow quarters and rests
-              //        $scope.quarterDisabled = false;
-              if(newSequencer4['btn'+btn-1] == 2){
-                $scope.quarterDisabled = true;
-              } else {
-                $scope.quarterDisabled = false;
-              }
-            break;
+          tmpBtn1 = currBtn+1;
+          if(newSequencers[$scope.currSequencer]['btn'+tmpBtn1] == 1){
+            $scope.quarterDisabled = false;
+            $scope.halfDisabled = true;
           }
-        break;
+          if(newSequencers[$scope.currSequencer]['btn'+tmpBtn1] == 0){
+            $scope.halfDisabled = false;
+            $scope.quarterDisabled = false;
+          }
+          break;
+        case 0:
+          tmpBtn1 = currBtn-1;
+          if(newSequencers[$scope.currSequencer]['btn'+tmpBtn1] == 2){
+            $scope.quarterDisabled = true;
+          } else {
+            $scope.quarterDisabled = false;
+          }
+          break;
+      }
+
+      if($scope.rowCount(currBtn)>=4){
+        if(newSequencers[$scope.currSequencer]['btn'+currBtn] == 1){
+          $scope.halfDisabled = true;
+          $scope.wholeDisabled = true;
+        }
+        if(newSequencers[$scope.currSequencer]['btn'+currBtn] == 2){
+          $scope.wholeDisabled = true;
+        }
       }
     }
 
+    var updateCheckbox = function(btn){
+      resetCheckbox();
+      switch(newSequencers[$scope.currSequencer]['btn'+btn]){
+        case 1:
+          $scope.quarter = true;
+          break;
+        case 2:
+          $scope.half = true;
+          break;
+        case 4:
+          $scope.whole = true;
+          break;
+        case 0:
+          $scope.rest = true;
+          break;
+      }
+    }
 
+    var resetCheckbox = function(){
+      $scope.quarter = false;
+      $scope.half = false;
+      $scope.whole = false;
+      $scope.rest = false;
+    }
+
+    var count;
+    var start;
+    var end;
+    $scope.rowCount = function(currBtn){
+      count = 0;
+      start = Math.floor(currBtn/4)*4 + 1;    //currBtn = 11   currBtn/4= 2   start tiene que ser=9  end=12        currBtn = 9  currBtn/2 = 2     if currBtn/4 = 1, (currBtn/4)*4 + 1
+      end = start + 3;
+      for(var i = start; i<=end; i++){
+        count += newSequencers[$scope.currSequencer]['btn'+i];
+      }
+      return count;
+    }
+
+    $scope.quarterSelected = function(){
+      $scope.half = false;
+      $scope.whole = false;
+      $scope.rest = false;
+      if($scope.quarter){
+        console.log("inside quarterSelected");
+        console.log(newSequencers[$scope.currSequencer]['btn'+$scope.selectedBtn]);
+        newSequencers[$scope.currSequencer]['btn'+$scope.selectedBtn] = 1;
+        console.log(newSequencers[$scope.currSequencer]['btn'+$scope.selectedBtn]);
+        colorButton(1);
+      }
+    }
+
+    $scope.halfSelected = function(){
+      $scope.quarter = false;
+      $scope.whole = false;
+      $scope.rest = false;
+      if($scope.half){
+        console.log("inside halfSelected");
+        newSequencers[$scope.currSequencer]['btn'+$scope.selectedBtn] = 2;
+        colorButton(2);
+      }
+    }
+
+    $scope.wholeSelected = function(){
+      $scope.quarter = false;
+      $scope.half = false;
+      $scope.rest = false;
+      if($scope.whole){
+        console.log("inside wholeSelected");
+        newSequencers[$scope.currSequencer]['btn'+$scope.selectedBtn] = 4;
+        colorButton(4);
+      }
+    }
+
+    $scope.restSelected = function(){
+      $scope.quarter = false;
+      $scope.half = false;
+      $scope.whole = false;
+      if($scope.rest){
+        console.log("inside restSelected");
+        newSequencers[$scope.currSequencer]['btn'+$scope.selectedBtn] = 0;
+        colorButton(0);
+      }
+    }
+
+    var colorButton = function(noteDuration){
+      var elem = document.getElementById("animation-target"+$scope.selectedBtn);
+      console.log("inside colorButton");
+      switch(noteDuration){
+        case 1:
+          elem.style.backgroundColor = "#3fc9ee";
+          break;
+        case 2:
+          elem.style.backgroundColor = "#7ee493";
+          break;
+        case 4:
+          elem.style.backgroundColor = "#9a48c9";
+          break;
+        case 0:
+          elem.style.backgroundColor = "#e0e0e0";
+          break;
+      }
+    }
 
     $scope.editLesson = function(){
       console.log("inside edit lesson function");
@@ -527,18 +418,17 @@ angular.module('testappApp')
       $scope.editing = false;
     }
 
-//   firebase.database().ref('/lessons/lesson1/sublesson1/stepsequencer1/btn' + i).set({
-//     hit: values[arrayPtr]
-//   });
-//   arrayPtr++;
-// }
-// console.log(values);
-// }
+    //   firebase.database().ref('/lessons/lesson1/sublesson1/stepsequencer1/btn' + i).set({
+    //     hit: values[arrayPtr]
+    //   });
+    //   arrayPtr++;
+    // }
+    // console.log(values);
+    // }
 
-$scope.$on('data_shared',function(){
-    var data = dataService.getLesson();
-    console.log(data);
-});
+    $scope.$on('data_shared',function(){
+        var data = dataService.getLesson();
+        console.log(data);
+    });
 
-//
   });

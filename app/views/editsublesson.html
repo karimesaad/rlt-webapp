@@ -7,11 +7,10 @@
   </div>
   <div layout="row" layout-align="center center">
     <div layout="column">
-      <md-checkbox ng-model="quarter" ng-disabled="quarterDisabled">Quarter</md-checkbox>
-      <md-checkbox ng-model="half" ng-disabled="halfDisabled">Half</md-checkbox>
-      <md-checkbox ng-model="whole" ng-disabled="wholeDisabled">Whole</md-checkbox>
-      <md-checkbox ng-model="rest">Rest</md-checkbox>
-
+      <md-checkbox ng-if="editing" ng-model="quarter" ng-disabled="quarterDisabled" ng-change="quarterSelected()">Quarter</md-checkbox>
+      <md-checkbox ng-if="editing" ng-model="half" ng-disabled="halfDisabled" ng-change="halfSelected()">Half</md-checkbox>
+      <md-checkbox ng-if="editing" ng-model="whole" ng-disabled="wholeDisabled" ng-change="wholeSelected()">Whole</md-checkbox>
+      <md-checkbox ng-if="editing" ng-model="rest" ng-change="restSelected()">Rest</md-checkbox>
     </div>
     <div layout="column">
       <button class="button" id="animation-target1" ng-click="buttonSelected(1)"></button>
@@ -45,4 +44,10 @@
         <md-button ng-click="colorGrid()"> Select </md-button>
       </div>
     </div>
+</div>
+<div layout="row" layout-align="center center">
+  <div layout="column">
+    BPM: <input type="number" name="input" ng-model="bpm">
+    Time Signature: <select ng-model="currTimeSignature" ng-options="x for x in timeSignatures" ></select>
+  </div>
 </div>
