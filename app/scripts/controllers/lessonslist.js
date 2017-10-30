@@ -13,7 +13,9 @@ angular.module('testappApp')
     var lessonRef = 42;
     $scope.data = $firebaseObject(ref);
     $scope.lessons = [];
+    $scope.RPs = [];
     var lessonCnt;
+
 
     $scope.data.$loaded()
       .then(function() {
@@ -24,7 +26,7 @@ angular.module('testappApp')
           console.log("hello");
           var nameRef = firebase.database().ref('/lessons/lesson' + i + '/name');
           nameRef.on('value', function(snapshot) {
-            $scope.lessons.push({'name': snapshot.val(), 'num': i });
+            $scope.lessons.push({'name': snapshot.val(), 'num': i, 'RPcount' : 0 });
           });
         }
       } )
@@ -104,6 +106,11 @@ angular.module('testappApp')
     $scope.lessonSelected = function(lessonNum){
       dataService.sendLesson(lessonNum);
       console.log("lesson chosen is: "+lessonNum);
+        $scope.currLessons = dataService.getLesson();
+    }
+
+    $scope.RPSelected = function(RPnum){
+
     }
 
     $scope.goToPlay = function(){
@@ -121,4 +128,6 @@ angular.module('testappApp')
         console.log("inside edit function");
         $location.url("/EditSublesson").search(param);
     }
+
+
   });

@@ -58,9 +58,10 @@
 
 
 <md-content id="content" flex>
-    <h1>Lesson Name: {{lesson}}</h1>
+    <!-- <h1>Lesson Name: {{lesson}}</h1> -->
+    <h1>Lesson Name: {{lessons[currLessons - 1].name}}</h1>
 
-    <md-list>
+    <!-- <md-list>
       <md-list-item>
         <h3>Rhythmic Pattern 1</h3>
       </md-list-item>
@@ -98,7 +99,15 @@
           New Rhythmic Pattern
         </md-button>
       </md-list-item>
-    </md-list>
+    </md-list> -->
+
+<table>
+
+</table>
+
+<md-button ng-click="addNewRP()">
+  New Rhythmic Pattern
+</md-button>
 
 
   </md-content>
