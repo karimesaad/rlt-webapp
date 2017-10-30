@@ -10,11 +10,10 @@
   <h1 style="text-align: center">Play or Edit Lessons</h1>
 </md-toolbar>
 
-
 <div ng-controller="LessonslistCtrl" layout="row" flex>
   <md-sidenav md-is-locked-open="true" class="md-whiteframe-4dp">
 
-        <md-button ng-click="showPageContent(1)">
+        <!-- <md-button ng-click="showPageContent(1)">
           <md-icon md-svg-src="images/3-4_Time.svg" class="avatar"></md-icon>
           Lesson 1
         </md-button>
@@ -26,19 +25,19 @@
 
         <md-button ng-click="addNewLesson($event)">
           New Lesson
-        </md-button>
+        </md-button> -->
 
     <table>
       <tbody>
         <tr ng-repeat="lesson in lessons">
-          <td><md-button>{{ lesson.name }}</md-button></td>
+          <td><md-button ng-click="lessonSelected(lesson.num)">{{ lesson.name }}</md-button></td>
         </tr>
       </tbody>
     </table>
     <!-- <md-button ng-click="addNewLesson($event)">
       New Lesson
     </md-button> -->
-    <form class="form-horizontal" role="form" ng-submit="addRow()">
+    <!-- <form class="form-horizontal" role="form" ng-submit="addRow()">
     	<div class="form-group">
     		<label class="col-md-2 control-label">Name</label>
     		<div class="col-md-4">
@@ -51,13 +50,18 @@
     		  </div>
     	  </div>
       </div>
-    </form>
+    </form> -->
+    <md-button ng-click="addNewLesson($event)">
+      New Lesson
+    </md-button>
 </md-sidenav>
 
-<md-content id="content" flex>
-    <h1>Lesson Name: {{lesson}}</h1>
 
-    <md-list>
+<md-content id="content" flex>
+    <!-- <h1>Lesson Name: {{lesson}}</h1> -->
+    <h1>Lesson Name: {{lessons[currLessons - 1].name}}</h1>
+
+    <!-- <md-list>
       <md-list-item>
         <h3>Rhythmic Pattern 1</h3>
       </md-list-item>
@@ -95,7 +99,15 @@
           New Rhythmic Pattern
         </md-button>
       </md-list-item>
-    </md-list>
+    </md-list> -->
+
+<table>
+
+</table>
+
+<md-button ng-click="addNewRP()">
+  New Rhythmic Pattern
+</md-button>
 
 
   </md-content>
