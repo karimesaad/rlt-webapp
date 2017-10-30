@@ -8,7 +8,7 @@
 * Controller of the testappApp
 */
 angular.module('testappApp')
-.controller('PlaysublessonCtrl', function (dataService, ngAudio, $scope, firebaseFactory, $firebaseArray, $firebase, $firebaseObject) {
+.controller('PlaysublessonCtrl', function (firebaseFactory, dataService, ngAudio, $scope, $firebaseArray, $firebase, $firebaseObject) {
   this.awesomeThings = [
     'HTML5 Boilerplate',
     'AngularJS',
@@ -19,7 +19,6 @@ angular.module('testappApp')
   var sequencerRef2;
   var sequencerRef3;
   var sequencerRef4;
-  var buttons = [];
   var button;
   var buttonSeq;
   var tmpBtn;
@@ -106,7 +105,7 @@ angular.module('testappApp')
   //
   var ref = firebase.database().ref();
   $scope.data = $firebaseObject(ref);
-  
+
 
   // this waits for the data to load and then logs the output. Therefore,
   // data from the server will now appear in the logged output. Use this with care!
@@ -117,27 +116,22 @@ angular.module('testappApp')
     sequencerRef1 = $scope.data.lessons['lesson'+$scope.lesson]['rhythmicpattern'+$scope.rhythmicPattern].sequencer1;
 
     for(var btn = 1; btn <= 16; btn ++){
-      // buttons.push(btnRef['btn' + button].hit);
       button = 'btn' + btn;
-      // buttons.push(btnRef[button]);
       sequencer[button] = sequencerRef1[button];
     }
     colorGrid(1);
-    // sequencerRef2 = $scope.data.lessons.lesson1.rhythmicpattern1.sequencer2;
     sequencerRef2 = $scope.data.lessons['lesson'+$scope.lesson]['rhythmicpattern'+$scope.rhythmicPattern].sequencer2;
     for(var btn = 17; btn <= 32; btn ++){
       button = 'btn' + btn;
       buttonSeq = 'btn' + (btn-16);
       sequencer[button] = sequencerRef2[buttonSeq];
     }
-    // sequencerRef3 = $scope.data.lessons.lesson1.rhythmicpattern1.sequencer3;
     sequencerRef3 = $scope.data.lessons['lesson'+$scope.lesson]['rhythmicpattern'+$scope.rhythmicPattern].sequencer3;
     for(var btn = 33; btn <= 48; btn ++){
       button = 'btn' + btn;
       buttonSeq = 'btn' + (btn-32);
       sequencer[button] = sequencerRef3[buttonSeq];
     }
-    // sequencerRef4 = $scope.data.lessons.lesson1.rhythmicpattern1.sequencer4;
     sequencerRef4 = $scope.data.lessons['lesson'+$scope.lesson]['rhythmicpattern'+$scope.rhythmicPattern].sequencer4;
     for(var btn = 49; btn <= 64; btn ++){
       button = 'btn' + btn;
@@ -187,35 +181,36 @@ angular.module('testappApp')
     }
   }
 
-  //**************** INIT NEXUS OBJECTS ************//
+  //************************************************//
 
   $scope.bpm = 60;
   var currBtn = 1;
   var currSeq = 1;
   var currSeqBtn = 1;
-
+  var interval;
   var bounceDuration;
 
-  // Create a pulse of 2 second
-  var interval = new Nexus.Interval(200, function() {
-    console.log('beep: ' + $scope.bpm);
-  })
+  $scope.startInterval = function(){
+    interval = setInterval(function(){ $scope.intervalHandler(); }, 60000/($scope.bpm));
+  }
+
+  $scope.stopInterval = function(){
+    clearInterval(interval);
+  }
 
   $scope.playLesson = function(){
     if(startBtnFlag == 0){
-      interval.ms(60000/($scope.bpm)); // Change the interval time
       currBtn = 1;
       currSeq = 1;
       currSeqBtn = 1;
-      interval.start(); // Start the pulse
+      $scope.startInterval();
       startBtnFlag = 1;
     }
   }
 
   $scope.stopLesson = function(){
     startBtnFlag = 0;
-    // Stop the pulse
-    interval.stop();
+    $scope.stopInterval();
     currBtn = 1;
     currSeq = 1;
     currSeqBtn = 1;
@@ -223,8 +218,7 @@ angular.module('testappApp')
     colorGrid(1);
   }
 
-  // Change the function that is called at each pulse
-  interval.event = function() {
+    $scope.intervalHandler = function(){
     bounceDuration = ((60000/($scope.bpm))*(sequencer["btn"+currBtn]));
     var bounce = new Bounce();
     bounce.scale({
@@ -257,115 +251,10 @@ angular.module('testappApp')
         currSeq ++;
         colorGrid(currSeq);
       } else {
-        interval.stop();
+        // interval.stop();
+        $scope.stopInterval();
         colorGrid(1);
       }
     }
   }
-
-  $scope.showIt = function() {
-    $scope.boxVisible = true; // show it, then apply anim
-    var bounce = new Bounce();
-    bounce.scale({
-      from: {
-        x: .5,
-        y: 1
-      },
-      to: {
-        x: 1,
-        y: 1
-      },
-      easing: "bounce",
-      duration: 4000,
-      delay: 0,
-      bounces: 4,
-      stiffness: 1
-    }).scale({
-      from: {
-        x: 1,
-        y: .5
-      },
-      to: {
-        x: 1,
-        y: 1
-      },
-      easing: "bounce",
-      duration: 4000,
-      delay: 0,
-      bounces: 6,
-      stiffness: 1
-    });
-    bounce.applyTo(document.querySelectorAll(".animation-target"));
-  }
-
-  $scope.hideIt = function() {
-    var bounce = new Bounce();
-    bounce.scale({
-      from: {
-        x: 1,
-        y: 1
-      },
-      to: {
-        x: 0.1,
-        y: 1
-      },
-      easing: "bounce",
-      duration: 500,
-      delay: 0,
-      bounces: 4,
-      stiffness: 3
-    }).scale({
-      from: {
-        x: 1,
-        y: 1
-      },
-      to: {
-        x: 1,
-        y: 0.1
-      },
-      easing: "bounce",
-      duration: 250,
-      delay: 250,
-      bounces: 4,
-      stiffness: 1
-    });
-    bounce.applyTo(document.querySelectorAll(".animation-target")).then(function() {
-      // need to get the scope of the element, then
-      // set visibility to false to completely hide it
-      var scope = angular.element($(".blackbox")).scope();
-      scope.$apply(function() {
-        scope.boxVisible = false;
-      });
-    });
-
-  }
-
-  $scope.spinIt = function() {
-    $scope.boxVisible = true;
-    var bounce = new Bounce();
-    bounce.rotate({
-      from: 0,
-      to: 90,
-      bounces: 4,
-      duration: 1000,
-      delay: 0,
-      stiffness: 3
-    }).skew({
-      from: {
-        x: 0,
-        y: 0
-      },
-      to: {
-        x: 20,
-        y: 20
-      },
-      easing: "sway",
-      duration: 1000,
-      delay: 0,
-      bounces: 4,
-      stiffness: 3
-    });
-    bounce.applyTo(document.querySelectorAll(".animation-target"));
-  }
-
 });

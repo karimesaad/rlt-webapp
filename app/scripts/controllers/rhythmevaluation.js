@@ -12,6 +12,11 @@
 
 angular.module('testappApp')
   .controller('RhythmevaluationCtrl', function ($scope) {
+    this.awesomeThings = [
+  'HTML5 Boilerplate',
+  'AngularJS',
+  'Karma'
+];
     $scope.sortType     = 'name2'; // set the default sort type
     $scope.sortReverse  = false;  // set the default sort order
     $scope.searchName   = '';     // set the default search/filter term

@@ -1,97 +1,53 @@
-<p>This is the EditSublesson view.</p>
-<div class="row">
-  <div ng-repeat="b in vm.buttons">{{b}}</div>
-</div>
-<!-- To connect the UI objects with the backend (javascript) just make them have the same id -->
-
-  <div class="container" id="nexus_sequencer">
-    <div class="row new-sequencer-row">
-      <div class="col-md-3">
-      <div id="sequencer1"></div>
-
+<div>
+  <div layout="row" layout-align="center center">
+    <div layout="column" layout-align="center center">
+      <h2> Lesson: {{ lesson }} </h2><br>
+      <h3> Rhythmic Pattern: {{ rhythmicPattern }} </h3>
     </div>
-    <div class="col-md-3">
-    <div id="sequencer2"></div>
-
   </div>
-  <div class="col-md-3">
-  <div id="sequencer3"></div>
-
-</div>
-<div class="col-md-3">
-<div id="sequencer4"></div>
-
-</div>
+  <div layout="row" layout-align="center center">
+    <div layout="column">
+      <md-checkbox ng-if="editing" ng-model="quarter" ng-disabled="quarterDisabled" ng-change="quarterSelected()">Quarter</md-checkbox>
+      <md-checkbox ng-if="editing" ng-model="half" ng-disabled="halfDisabled" ng-change="halfSelected()">Half</md-checkbox>
+      <md-checkbox ng-if="editing" ng-model="whole" ng-disabled="wholeDisabled" ng-change="wholeSelected()">Whole</md-checkbox>
+      <md-checkbox ng-if="editing" ng-model="rest" ng-change="restSelected()">Rest</md-checkbox>
     </div>
-    <div class="row new-sequencer-row">
-      <div class="col-md-3">
-      <div id="sequencer5"></div>
-
+    <div layout="column">
+      <button class="button" id="animation-target1" ng-click="buttonSelected(1)"></button>
+      <button class="button" id="animation-target5" ng-click="buttonSelected(5)"></button>
+      <button class="button" id="animation-target9" ng-click="buttonSelected(9)"></button>
+      <button class="button" id="animation-target13" ng-click="buttonSelected(13)"></button>
     </div>
-    <div class="col-md-3">
-    <div id="sequencer6"></div>
-
+    <div layout="column">
+      <button class="button" id="animation-target2" ng-click="buttonSelected(2)"></button>
+      <button class="button" id="animation-target6" ng-click="buttonSelected(6)"></button>
+      <button class="button" id="animation-target10" ng-click="buttonSelected(10)"></button>
+      <button class="button" id="animation-target14" ng-click="buttonSelected(14)"></button>
+    </div>
+    <div layout="column">
+      <button class="button" id="animation-target3" ng-click="buttonSelected(3)"></button>
+      <button class="button" id="animation-target7" ng-click="buttonSelected(7)"></button>
+      <button class="button" id="animation-target11" ng-click="buttonSelected(11)"></button>
+      <button class="button" id="animation-target15" ng-click="buttonSelected(15)"></button>
+    </div>
+    <div layout="column">
+      <button class="button" id="animation-target4" ng-click="buttonSelected(4)"></button>
+      <button class="button" id="animation-target8" ng-click="buttonSelected(8)"></button>
+      <button class="button" id="animation-target12" ng-click="buttonSelected(12)"></button>
+      <button class="button" id="animation-target16" ng-click="buttonSelected(16)"></button>
+    </div>
+    <div layout="row">
+      <md-button ng-click="editLesson()" ng-hide="editing"> Edit </md-button>
+      <md-button ng-click="saveLesson()" ng-show="editing"> SAVE </md-button>
+      <div layout="column">
+        <select ng-model="currSequencer" ng-options="x for x in sequencers" ></select>
+        <md-button ng-click="colorGrid()"> Select </md-button>
+      </div>
+    </div>
+</div>
+<div layout="row" layout-align="center center">
+  <div layout="column">
+    BPM: <input type="number" name="input" ng-model="bpm">
+    Time Signature: <select ng-model="currTimeSignature" ng-options="x for x in timeSignatures" ></select>
   </div>
-  <div class="col-md-3">
-  <div id="sequencer7"></div>
-
-</div>
-<div class="col-md-3">
-<div id="sequencer8"></div>
-
-</div>
-    </div>
-    <div class="row new-sequencer-row">
-      <div class="col-md-3">
-      <div id="sequencer9"></div>
-
-    </div>
-    <div class="col-md-3">
-    <div id="sequencer10"></div>
-
-  </div>
-  <div class="col-md-3">
-  <div id="sequencer11"></div>
-
-</div>
-<div class="col-md-3">
-<div id="sequencer12"></div>
-
-</div>
-    </div>
-    <div class="row new-sequencer-row">
-      <div class="col-md-3">
-      <div id="sequencer13"></div>
-
-    </div>
-    <div class="col-md-3">
-    <div id="sequencer14"></div>
-
-  </div>
-  <div class="col-md-3">
-  <div id="sequencer15"></div>
-
-</div>
-<div class="col-md-3">
-<div id="sequencer16"></div>
- 2
-</div>
-    </div>
-  <div class="row new-sequencer-row">
-    <div class="col-md-2 col-md-offset-2">
-      <div id="edit-button"> edit </div>
-    </div>
-    <div class="col-md-2 col-md-offset-2">
-      <div id="new-button"> new </div>
-    </div>
-    <!-- <div class="col-md-2">
-      <div nexus-ui="stop-button" id="stop-button" ng-model="stopbutton"> Stop </div>
-    </div> -->
-    <!-- <div class="col-md-2" ng-controller="AboutCtrl"> -->
-      BPM: <input type="text" name="bpm" ng-change="displayBPM()" ng-model="bpm1" >
-    </div>
-  <div class="row">
-    <ul>
-      <li ng-repeat="lesson in lessons">{{ lesson.lesson1.sublesson1.stepseq1.btn1.pressed }}</li>
-    </ul>  </div>
 </div>

@@ -10,8 +10,8 @@
 angular.module('testappApp')
   .factory('dataService', function ($rootScope) {
     var service = {};
-    service.lesson = 0;
-    service.rhythmicPattern = 0;
+    service.lesson = 1;
+    service.rhythmicPattern = 1;
 
     service.sendLesson = function(lesson){
       this.lesson = lesson;
@@ -27,6 +27,10 @@ angular.module('testappApp')
       this.lesson = lesson;
       this.rhythmicPattern = rhythmicPattern;
       $rootScope.$broadcast('data_shared');
+    };
+    service.sendLesson = function(lesson){
+      this.lesson = lesson;
+      $rootScope.$broadcast('lesson_shared');
     };
     service.getLesson = function(){
       return this.lesson;
