@@ -65,7 +65,19 @@ md-list-item > button {
 .td1 {
   font-size: 36px;
 }
+
+.tr1 {
+  background-color: #C5CAE9;
+}
 /* END RHYTHMIC EVALUATION CSS */
+
+.whiteBG {
+  background-color: #fff;
+}
+
+.md-theme{
+    background-color: #7986CB;
+}
 
 .browsehappy {
   margin: 0.2em 0;
@@ -227,32 +239,4 @@ margin-right: auto;
     cursor: pointer;
   }
 
-  .container_dnzb90 {
-    display: -moz-box !important;
-    display: -ms-flexbox !important;
-    display: -webkit-box !important;
-    display: -webkit-flex !important;
-    display: flex !important;
-    position: relative !important;
-    flex-direction: row !important;
-    flex-grow: 1 !important;
-    min-height: 144px !important;
-    margin: 0 auto !important;
-    background-color: #FFFFFF !important;
-    border-color: #D6D8DA !important;
-    border-style: solid !important;
-    border-width: 1px !important;
-    padding: 24px 48px !important;
-    box-sizing: border-box !important;
-    border-radius: 4px !important;
-    color: inherit !important;
-    text-decoration: none !important;
-    -webkit-flex-direction: row !important;
-    -ms-flex-direction: row !important;
-    -webkit-flex-grow: 1 !important;
-    -moz-box-sizing: border-box !important;
-    -webkit-box-orient: horizontal !important;
-    -webkit-box-direction: normal !important;
-    -ms-flex-positive: 1 !important;
-    }
 }
