@@ -102,7 +102,13 @@
     </md-list> -->
 
 <table>
-
+  <tbody>
+    <tr ng-repeat="rp in RPs">
+      <td>Rhythmic Pattern</td>
+      <td><md-button>Play</md-button></td>
+      <td><md-button>Edit</md-button></td>
+    </tr>
+  </tbody>
 </table>
 
 <md-button ng-click="addNewRP()">
