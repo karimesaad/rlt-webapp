@@ -4166,7 +4166,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .navbar {
   position: relative;
   min-height: 50px;
-  margin-bottom: 20px;
+  margin-bottom: 0;
   border: 1px solid transparent;
 }
 @media (min-width: 768px) {
@@ -4588,13 +4588,13 @@ fieldset[disabled] .navbar-default .btn-link:hover,
 fieldset[disabled] .navbar-default .btn-link:focus {
   color: #ccc;
 }
-.navbar-inverse {
-  background-color: #303F9F;
+.navbar-inverse {;
+  background-color: #1A237E;
   border-color: #080808;
 }
 .navbar-inverse .navbar-brand {
   color: #fff;
-  background-color: #303F9F;
+  background-color: #1A237E;
 }
 
 .navbar-inverse .navbar-brand:hover,
@@ -4604,6 +4604,7 @@ fieldset[disabled] .navbar-default .btn-link:focus {
 }
 .navbar-inverse .navbar-text {
   color: #fff;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 .navbar-inverse .navbar-nav > li > a {
   color: #fff;
