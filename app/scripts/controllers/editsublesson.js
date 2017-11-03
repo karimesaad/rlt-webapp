@@ -8,7 +8,7 @@
  * Controller of the testappApp
  */
 angular.module('testappApp')
-  .controller('EditsublessonCtrl', function ($rootScope, $location, dataService, $scope, firebaseFactory, $firebaseArray, $firebase, $firebaseObject) {
+  .controller('EditsublessonCtrl', function ($mdDialog, $rootScope, $location, dataService, $scope, firebaseFactory, $firebaseArray, $firebase, $firebaseObject) {
     this.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',
@@ -108,7 +108,17 @@ angular.module('testappApp')
     $scope.halfDisabled = false;
     $scope.wholeDisabled = false;
 
+    $scope.quarter = false;
+    $scope.half = false;
+    $scope.whole = false;
+    $scope.rest = false;
+
     var btnColumn;
+
+    var toggleQuarter = false;
+    var toggleHalf = false;
+    var toggleWhole = false;
+    var toggleRest = false;
 
     /*********** GET DATA PASSED FROM PREVIOUS PAGE ***********/
     $scope.lesson = dataService.getLesson();
@@ -156,7 +166,6 @@ angular.module('testappApp')
         buttonSeq = 'btn' + (btn-48);
         sequencer[button] = sequencerRef4[buttonSeq];
       }
-      // console.log(sequencer);
 
       newSequencers[1] = sequencerRef1;
       newSequencers[2] = sequencerRef2;
@@ -164,7 +173,6 @@ angular.module('testappApp')
       newSequencers[4] = sequencerRef4;
 
       $scope.colorGrid(1);
-
     })
     .catch(function(err) {
       console.error(err);
@@ -220,12 +228,11 @@ angular.module('testappApp')
 
       $scope.selectedBtn = currBtn;
 
-      // console.log($scope.rowCount(currBtn));
-      $scope.quarterDisabled = false;
-      $scope.halfDisabled = false;
-      $scope.wholeDisabled = false;
+      //console.log($scope.rowCount(currBtn));
+      console.log(newSequencers[$scope.currSequencer]);
 
       updateCheckbox(currBtn);
+      updateNewCheckbox(currBtn);
 
       btnColumn = currBtn%4;  // button columns: [1] [2] [3] [0]
       if(btnColumn != 1){  //middle columns
@@ -239,58 +246,77 @@ angular.module('testappApp')
           tmpBtn1 = currBtn+1;
           if(newSequencers[$scope.currSequencer]['btn'+tmpBtn1] == 0){
             $scope.halfDisabled = false;
-            $scope.quarterDisabled = false;
+            tmpBtn1 = currBtn+2;
+            tmpBtn2 = currBtn+3;
+            if(newSequencers[$scope.currSequencer]['btn'+tmpBtn1] == 0 && newSequencers[$scope.currSequencer]['btn'+tmpBtn2] == 0){
+              $scope.wholeDisabled = false;
+            } else {
+              $scope.wholeDisabled = true;
+            }
           } else {
             $scope.halfDisabled = true;
-            $scope.quarterDisabled = false;
           }
-          tmpBtn1 = currBtn+2;
-          tmpBtn2 = currBtn+3;
-          if(newSequencers[$scope.currSequencer]['btn'+tmpBtn1] == 0 && newSequencers[$scope.currSequencer]['btn'+tmpBtn2] == 0){
-            $scope.wholeDisabled = false;
-          } else {
-            $scope.wholeDisabled = true;
-          }
+          $scope.quarterDisabled = false;
+          $scope.$apply();
+
           break;
         case 2:
           tmpBtn1 = currBtn-1;
           if(newSequencers[$scope.currSequencer]['btn'+tmpBtn1] == 2 || newSequencers[$scope.currSequencer]['btn'+tmpBtn1] == 4){
             $scope.quarterDisabled = true;
             $scope.halfDisabled = true;
+            $scope.$apply();
+
+            console.log("meow");
           }
           tmpBtn1 = currBtn+1;
           if(newSequencers[$scope.currSequencer]['btn'+tmpBtn1] == 1 || newSequencers[$scope.currSequencer]['btn'+tmpBtn1] == 2){
             $scope.quarterDisabled = false;
             $scope.halfDisabled = true;
+            $scope.$apply();
+
           }
           if(newSequencers[$scope.currSequencer]['btn'+tmpBtn1] == 0){
             $scope.halfDisabled = false;
             $scope.quarterDisabled = false;
+            $scope.$apply();
+
           }
           break;
         case 3:
           tmpBtn1 = currBtn-1;
-          if(newSequencers[$scope.currSequencer]['btn'+tmpBtn1] == 2){
+          tmpBtn2 = currBtn-2;
+
+          if(newSequencers[$scope.currSequencer]['btn'+tmpBtn1] == 2 || newSequencers[$scope.currSequencer]['btn'+tmpBtn2] == 4){
              $scope.quarterDisabled = true;
              $scope.halfDisabled = true;
+             $scope.$apply();
           }
           tmpBtn1 = currBtn+1;
           if(newSequencers[$scope.currSequencer]['btn'+tmpBtn1] == 1){
             $scope.quarterDisabled = false;
             $scope.halfDisabled = true;
+            $scope.$apply();
+
           }
           if(newSequencers[$scope.currSequencer]['btn'+tmpBtn1] == 0){
             $scope.halfDisabled = false;
             $scope.quarterDisabled = false;
+            $scope.$apply();
+
           }
+
           break;
         case 0:
           tmpBtn1 = currBtn-1;
-          if(newSequencers[$scope.currSequencer]['btn'+tmpBtn1] == 2){
+          tmpBtn2 = currBtn-3;
+          if(newSequencers[$scope.currSequencer]['btn'+tmpBtn1] == 2 || newSequencers[$scope.currSequencer]['btn'+tmpBtn2] == 4){
             $scope.quarterDisabled = true;
           } else {
             $scope.quarterDisabled = false;
           }
+          $scope.$apply();
+
           break;
       }
 
@@ -303,31 +329,72 @@ angular.module('testappApp')
           $scope.wholeDisabled = true;
         }
       }
+      //console.log(sequencer);
     }
 
     var updateCheckbox = function(btn){
-      resetCheckbox();
       switch(newSequencers[$scope.currSequencer]['btn'+btn]){
         case 1:
           $scope.quarter = true;
+          $scope.half = false;
+          $scope.whole = false;
+          $scope.rest = false;
           break;
         case 2:
-          $scope.half = true;
+        $scope.quarter = false;
+        $scope.half = true;
+        $scope.whole = false;
+        $scope.rest = false;
           break;
         case 4:
           $scope.whole = true;
+          $scope.quarter = false;
+          $scope.half = false;
+          $scope.rest = false;
           break;
         case 0:
+          $scope.quarter = false;
+          $scope.half = false;
+          $scope.whole = false;
           $scope.rest = true;
           break;
       }
     }
 
-    var resetCheckbox = function(){
-      $scope.quarter = false;
-      $scope.half = false;
-      $scope.whole = false;
-      $scope.rest = false;
+    var updateNewCheckbox = function(btn){
+      switch(newSequencers[$scope.currSequencer]['btn'+btn]){
+        case 1:
+          $scope.newQuarter = true;
+          $scope.newHalf = false;
+          $scope.newWhole = false;
+          $scope.newRest = false;
+          break;
+        case 2:
+        $scope.newQuarter = false;
+        $scope.newHalf = true;
+        $scope.newWhole = false;
+        $scope.newRest = false;
+          break;
+        case 4:
+          $scope.newWhole = true;
+          $scope.newQuarter = false;
+          $scope.newHalf = false;
+          $scope.newRest = false;
+          break;
+        case 0:
+          $scope.newQuarter = false;
+          $scope.newHalf = false;
+          $scope.newWhole = false;
+          $scope.newRest = true;
+          break;
+      }
+    }
+
+    var resetNewCheckbox = function(){
+      $scope.newQuarter = false;
+      $scope.newHalf = false;
+      $scope.newWhole = false;
+      $scope.newRest = false;
     }
 
     var count;
@@ -343,55 +410,115 @@ angular.module('testappApp')
       return count;
     }
 
-    $scope.quarterSelected = function(){
-      $scope.half = false;
-      $scope.whole = false;
-      $scope.rest = false;
-      if($scope.quarter){
-        console.log("inside quarterSelected");
-        console.log(newSequencers[$scope.currSequencer]['btn'+$scope.selectedBtn]);
-        newSequencers[$scope.currSequencer]['btn'+$scope.selectedBtn] = 1;
-        console.log(newSequencers[$scope.currSequencer]['btn'+$scope.selectedBtn]);
-        colorButton(1);
-      }
-    }
+    $scope.checked = function(note){
 
-    $scope.halfSelected = function(){
-      $scope.quarter = false;
-      $scope.whole = false;
-      $scope.rest = false;
-      if($scope.half){
-        console.log("inside halfSelected");
-        newSequencers[$scope.currSequencer]['btn'+$scope.selectedBtn] = 2;
-        colorButton(2);
-      }
-    }
+      switch(note){
+        case 1:
+          if(toggleQuarter == false){
+            toggleQuarter = true;
+          }  else {
+            toggleQuarter = false;
+          }
+          console.log('ng-change quarterSelected');
+          console.log($scope.newQuarter);
+          console.log("selectedBtn: "+$scope.selectedBtn);
+          console.log("toggleQuarter: "+$scope.toggleQuarter);
 
-    $scope.wholeSelected = function(){
-      $scope.quarter = false;
-      $scope.half = false;
-      $scope.rest = false;
-      if($scope.whole){
-        console.log("inside wholeSelected");
-        newSequencers[$scope.currSequencer]['btn'+$scope.selectedBtn] = 4;
-        colorButton(4);
-      }
-    }
+          $scope.newHalf = false;
+          $scope.newWhole = false;
+          $scope.newRest = false;
 
-    $scope.restSelected = function(){
-      $scope.quarter = false;
-      $scope.half = false;
-      $scope.whole = false;
-      if($scope.rest){
-        console.log("inside restSelected");
-        newSequencers[$scope.currSequencer]['btn'+$scope.selectedBtn] = 0;
-        colorButton(0);
+          if(toggleQuarter){
+            newSequencers[$scope.currSequencer]['btn'+$scope.selectedBtn] = 1;
+            colorButton(1);
+
+          } else {
+            newSequencers[$scope.currSequencer]['btn'+$scope.selectedBtn] = 0;
+            $scope.newRest = true;
+            colorButton(0);
+          }
+          break;
+        case 2:
+          if(toggleHalf == false){
+            toggleHalf = true;
+          }  else {
+            toggleHalf = false;
+          }
+          console.log('ng-change halfSelected');
+          console.log($scope.newHalf);
+          console.log("selectedBtn: "+$scope.selectedBtn);
+          console.log("toggleHalf: "+$scope.toggleHalf);
+
+          $scope.newQuarter = false;
+          $scope.newWhole = false;
+          $scope.newRest = false;
+
+          if(toggleHalf){
+            newSequencers[$scope.currSequencer]['btn'+$scope.selectedBtn] = 2;
+            colorButton(2);
+          }
+          else {
+            newSequencers[$scope.currSequencer]['btn'+$scope.selectedBtn] = 0;
+            $scope.newRest = true;
+            colorButton(0);
+          }
+          break;
+        case 4:
+          if(toggleWhole == false){
+            toggleWhole = true;
+          }  else {
+            toggleWhole = false;
+          }
+          console.log('ng-change wholeSelected');
+          console.log($scope.newWhole);
+          console.log("selectedBtn: "+$scope.selectedBtn);
+          console.log("toggleWhole: "+$scope.toggleWhole);
+
+          $scope.newQuarter = false;
+          $scope.newHalf = false;
+          $scope.newRest = false;
+
+          if(toggleWhole){
+            newSequencers[$scope.currSequencer]['btn'+$scope.selectedBtn] = 4;
+            colorButton(4);
+          }
+          else {
+            newSequencers[$scope.currSequencer]['btn'+$scope.selectedBtn] = 0;
+            $scope.newRest = true;
+            colorButton(0);
+          }
+          break;
+        case 0:
+          if(toggleRest == false){
+            toggleRest = true;
+          }  else {
+            toggleRest = false;
+          }
+          console.log('ng-change restSelected');
+          console.log($scope.newRest);
+          console.log("selectedBtn: "+$scope.selectedBtn);
+          console.log("toggleRest: "+$scope.toggleRest);
+
+          $scope.newQuarter = false;
+          $scope.newHalf = false;
+          $scope.newWhole = false;
+
+          if(toggleRest){
+            newSequencers[$scope.currSequencer]['btn'+$scope.selectedBtn] = 0;
+            colorButton(0);
+          }
+          break;
+        default:
+          newSequencers[$scope.currSequencer]['btn'+$scope.selectedBtn] = 0;
+          colorButton(0);
       }
+      console.log(newSequencers[$scope.currSequencer]);
     }
 
     var colorButton = function(noteDuration){
+      console.log("selectedBtn: "+$scope.selectedBtn+"  noteDuration: "+noteDuration);
+      console.log(newSequencers[$scope.currSequencer]);
       var elem = document.getElementById("animation-target"+$scope.selectedBtn);
-      console.log("inside colorButton");
       switch(noteDuration){
         case 1:
           elem.style.backgroundColor = "#3fc9ee";
@@ -408,14 +535,84 @@ angular.module('testappApp')
       }
     }
 
+    $scope.showConfirm = function(ev) {
+      // Appending dialog to document.body to cover sidenav in docs app
+      var confirm = $mdDialog.confirm()
+        .title('Are you sure you want to change the time signature?')
+        // .textContent('This will erase any modifications made to the last column.')
+        .ariaLabel('Time signature')
+        .targetEvent(ev)
+        .ok('Yes')
+        .cancel('Cancel');
+
+      $mdDialog.show(confirm).then(function() {
+        $scope.status = 'Time signature changed.';
+        if($scope.currTimeSignature == $scope.timeSignatures[0]){
+          disableLastColumn();
+        } else {
+          enableLastColumn();
+        }
+      }, function() {
+        $scope.status = 'Time signature was not changed.';
+      });
+    };
+
+    var disableLastColumn = function(){
+      $scope.hideLastCol = true;
+    }
+
+    var enableLastColumn = function(){
+      $scope.hideLastCol = false;
+    }
+
+    $scope.bpmValidation = function(){
+      if(!($scope.bpm >= 40 && $scope.bpm <= 200)){
+        $scope.bpm = "";
+      }
+    }
     $scope.editLesson = function(){
-      console.log("inside edit lesson function");
       $scope.editing = true;
     }
 
     $scope.saveLesson = function(){
+      console.log(sequencer);
       console.log("inside save lesson function");
+
+      console.log("newSequencers: ");
+      console.log(newSequencers);
+
       $scope.editing = false;
+
+
+      for(var btn = 1; btn <= 16; btn ++){
+        button = 'btn' + btn;
+        sequencer[button] = newSequencers[1][button];
+      }
+      for(var btn = 17; btn <= 32; btn ++){
+        button = 'btn' + btn;
+        buttonSeq = 'btn' + (btn-16);
+        sequencer[button] = newSequencers[2][buttonSeq];
+      }
+      // sequencerRef3 = $scope.data.lessons.lesson1.rhythmicpattern1.sequencer3;
+      sequencerRef3 = $scope.data.lessons['lesson'+$scope.lesson]['rhythmicpattern'+$scope.rhythmicPattern].sequencer3;
+      for(var btn = 33; btn <= 48; btn ++){
+        button = 'btn' + btn;
+        buttonSeq = 'btn' + (btn-32);
+        sequencer[button] = newSequencers[3][buttonSeq];
+      }
+      // sequencerRef4 = $scope.data.lessons.lesson1.rhythmicpattern1.sequencer4;
+      sequencerRef4 = $scope.data.lessons['lesson'+$scope.lesson]['rhythmicpattern'+$scope.rhythmicPattern].sequencer4;
+      for(var btn = 49; btn <= 64; btn ++){
+        button = 'btn' + btn;
+        buttonSeq = 'btn' + (btn-48);
+        sequencer[button] = newSequencers[4][buttonSeq];
+      }
+      if($scope.currTimeSignature == $scope.timeSignatures[0]){
+        for(var i =4; i<=64; i=i+4){
+          sequencer['btn'+i] = 0;
+        }
+      }
+      console.log(sequencer);
     }
 
     //   firebase.database().ref('/lessons/lesson1/sublesson1/stepsequencer1/btn' + i).set({

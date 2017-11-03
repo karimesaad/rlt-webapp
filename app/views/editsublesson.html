@@ -1,4 +1,4 @@
-<div class="whiteBG">
+<div>
   <div layout="row" layout-align="center center">
     <div layout="column" layout-align="center center">
       <h2> Lesson: {{ lesson }} </h2><br>
@@ -7,47 +7,80 @@
   </div>
   <div layout="row" layout-align="center center">
     <div layout="column">
-      <md-checkbox ng-if="editing" ng-model="quarter" ng-disabled="quarterDisabled" ng-change="quarterSelected()">Quarter</md-checkbox>
-      <md-checkbox ng-if="editing" ng-model="half" ng-disabled="halfDisabled" ng-change="halfSelected()">Half</md-checkbox>
-      <md-checkbox ng-if="editing" ng-model="whole" ng-disabled="wholeDisabled" ng-change="wholeSelected()">Whole</md-checkbox>
-      <md-checkbox ng-if="editing" ng-model="rest" ng-change="restSelected()">Rest</md-checkbox>
+      <div ng-if="editing"> Current Note Duration:
+        <!-- <md-checkbox ng-model="quarter" ng-if="editing" ng-disabled="quarterDisabled" ng-change="quarterSelected()">Quarter</md-checkbox>
+        <md-checkbox ng-model="half" ng-if="editing" ng-disabled="halfDisabled" ng-change="halfSelected()">Half</md-checkbox>
+        <md-checkbox ng-model="whole" ng-if="editing" ng-disabled="wholeDisabled" ng-change="wholeSelected()">Whole</md-checkbox>
+        <md-checkbox ng-model="rest" ng-if="editing" ng-change="restSelected()">Rest</md-checkbox> -->
+        <div layout="column">
+          <md-checkbox ng-model="quarter" ng-disabled="true">Quarter</md-checkbox>
+          <md-checkbox ng-model="half" ng-disabled="true">Half</md-checkbox>
+          <md-checkbox ng-model="whole" ng-disabled="true">Whole</md-checkbox>
+          <md-checkbox ng-model="rest" ng-disabled="true">Rest</md-checkbox>
+        </div>
+      </div>
+      <br>
+      <div ng-if="editing" > New Note Duration:
+        <div layout="column">
+          <md-checkbox ng-model="newQuarter" ng-model="q" ng-disabled="quarterDisabled" ng-change="checked(1)">Quarter</md-checkbox>
+          <md-checkbox ng-model="newHalf" ng-model="h" ng-disabled="halfDisabled" ng-change="checked(2)">Half</md-checkbox>
+          <md-checkbox ng-model="newWhole" ng-model="w" ng-disabled="wholeDisabled" ng-change="checked(4)">Whole</md-checkbox>
+          <md-checkbox ng-model="newRest" ng-model="r" ng-change="checked(0)">Rest</md-checkbox>
+        </div>
+        quarterDisabled: {{quarterDisabled}} ||| <br>halfDisabled: {{halfDisabled}} |||
+        wholeDisabled: {{wholeDisabled}}
+      </div>
+      <br>
+      <div layout="column">
+        Time Signature:
+        <div class="dialog-demo-content" layout="row" layout-wrap layout-margin layout-align="center">
+          <select ng-model="currTimeSignature" ng-options="x for x in timeSignatures" ></select>
+          <md-button class="md-primary md-raised" ng-click="showConfirm($event)"> Select </md-button>
+        </div>
+        BPM: <input type="text" placeholder="Enter BPM (40-200)" name="input" ng-model="bpm" min="40" max="200" ng-blur="bpmValidation()">
+      </div>
     </div>
+
+      <!-- Whole is : {{whole}}    |||    Half is: {{half}} <br>  Quarter is: {{quarter}} |||  Rest is: {{rest}} <br><br> -->
+
+
     <div layout="column">
       <button class="button" id="animation-target1" ng-click="buttonSelected(1)"></button>
       <button class="button" id="animation-target5" ng-click="buttonSelected(5)"></button>
       <button class="button" id="animation-target9" ng-click="buttonSelected(9)"></button>
-      <button class="button" id="animation-target13" ng-click="buttonSelected(13)"></button>
+      <button class="button" id="animation-target13"  ng-click="buttonSelected(13)"></button>
     </div>
     <div layout="column">
       <button class="button" id="animation-target2" ng-click="buttonSelected(2)"></button>
       <button class="button" id="animation-target6" ng-click="buttonSelected(6)"></button>
       <button class="button" id="animation-target10" ng-click="buttonSelected(10)"></button>
-      <button class="button" id="animation-target14" ng-click="buttonSelected(14)"></button>
+      <button class="button" id="animation-target14"  ng-click="buttonSelected(14)"></button>
     </div>
     <div layout="column">
       <button class="button" id="animation-target3" ng-click="buttonSelected(3)"></button>
       <button class="button" id="animation-target7" ng-click="buttonSelected(7)"></button>
       <button class="button" id="animation-target11" ng-click="buttonSelected(11)"></button>
-      <button class="button" id="animation-target15" ng-click="buttonSelected(15)"></button>
+      <button class="button" id="animation-target15"  ng-click="buttonSelected(15)"></button>
     </div>
     <div layout="column">
-      <button class="button" id="animation-target4" ng-click="buttonSelected(4)"></button>
-      <button class="button" id="animation-target8" ng-click="buttonSelected(8)"></button>
-      <button class="button" id="animation-target12" ng-click="buttonSelected(12)"></button>
-      <button class="button" id="animation-target16" ng-click="buttonSelected(16)"></button>
+      <button class="button" id="animation-target4" ng-hide="hideLastCol" ng-click="buttonSelected(4)"></button>
+      <button class="button" id="animation-target8" ng-hide="hideLastCol" ng-click="buttonSelected(8)"></button>
+      <button class="button" id="animation-target12" ng-hide="hideLastCol" ng-click="buttonSelected(12)"></button>
+      <button class="button" id="animation-target16" ng-hide="hideLastCol" ng-click="buttonSelected(16)"></button>
     </div>
-    <div layout="row">
-      <md-button ng-click="editLesson()" ng-hide="editing"> Edit </md-button>
-      <md-button ng-click="saveLesson()" ng-show="editing"> SAVE </md-button>
-      <div layout="column">
-        <select ng-model="currSequencer" ng-options="x for x in sequencers" ></select>
-        <md-button ng-click="colorGrid()"> Select </md-button>
+    <div layout="column">
+      <div layout="row">
+        <select ng-model="currSequencer" ng-options="x for x in sequencers"></select><br>
+        <md-button ng-click="colorGrid()" class="md-primary md-raised"> Select </md-button> <br>
       </div>
+
+      <div layout="column">
+        <br>
+        <md-button class="md-primary md-raised" ng-click="editLesson()" ng-hide="editing"> Edit </md-button>
+        <md-button class="md-primary md-raised" ng-click="saveLesson()" ng-show="editing"> SAVE </md-button>
+      </div>
+
     </div>
-</div>
-<div layout="row" layout-align="center center">
-  <div layout="column">
-    BPM: <input type="number" name="input" ng-model="bpm">
-    Time Signature: <select ng-model="currTimeSignature" ng-options="x for x in timeSignatures" ></select>
+
   </div>
 </div>
