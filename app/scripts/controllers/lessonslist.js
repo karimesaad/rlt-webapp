@@ -9,11 +9,6 @@
  */
 angular.module('testappApp')
   .controller('LessonslistCtrl', function(dataService, firebaseFactory, $scope, $location, $mdDialog, $firebaseArray, $firebase, $firebaseObject){
-    this.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
 
     var ref = firebase.database().ref();
     var lessonRef = 42;
@@ -21,6 +16,7 @@ angular.module('testappApp')
     $scope.lessons = [];
     $scope.RPs = [];
     var lessonCnt;
+    var RPCnt;
     var RPadded = 0;
     $scope.currLessons = 1;
 
@@ -42,21 +38,6 @@ angular.module('testappApp')
         console.error(err);
       });
 
-    $scope.showPageContent = function(lessonInt){
-      switch(lessonInt) {
-        case 1:
-          $scope.lesson = 1;
-          console.log("lesson 1");
-          break;
-        case 2:
-          $scope.lesson =2;
-          console.log("lesson 2");
-          break;
-        default:
-          console.log("lesson 0");
-          break;
-      }
-    }
 
     $scope.addNewLesson = function(ev){
     var lessonCnt = lessonRef.numLessons;
@@ -178,26 +159,41 @@ window.location.reload();
 }
 
     $scope.lessonSelected = function(lessonNum){
+      $scope.RPs.length = 0;
       dataService.sendLesson(lessonNum);
       console.log("lesson chosen is: "+lessonNum);
       $scope.currLessons = dataService.getLesson();
-      
+      var nameRef = firebase.database().ref('/lessons/lesson' + $scope.currLessons + '/numRP');
+      nameRef.on('value', function(snapshot) {
+        RPCnt = snapshot.val();
+      });
+      for(var i = 1; i <= RPCnt; i++){
+        console.log("hello");
+        var RPRef = firebase.database().ref('/lessons/lesson' + $scope.currLessons + '/rhythmicpattern' + i);
+        RPRef.on('value', function(snapshot) {
+          $scope.RPs.push({'name': 'Rhythmic Pattern ' + i, 'num': i});
+        });
+      }
+      //window.location.reload();
     }
 
-    $scope.goToPlay = function(){
-        var param = {
-            lesson: $scope.lesson
-        }
-        console.log("inside play function");
-        $location.url("/PlaySublesson").search(param);
+    $scope.goToPlay = function(rhy){
+      console.log(rhy);
+      var updateCurrents = {};
+      updateCurrents['/lessons/lessonchosen'] = $scope.currLessons;
+      updateCurrents['/lessons/rhythmicpatternchosen'] = rhy;
+      updateCurrents['/lessons/Flags/Software/LoadLesson'] = 1;
+      firebase.database().ref().update(updateCurrents);
+        //$location.url("/PlaySublesson");
     }
 
-    $scope.goToEdit = function(){
-        var param = {
-            lesson: $scope.lesson
-        }
-        console.log("inside edit function");
-        $location.url("/EditSublesson").search(param);
+    $scope.goToEdit = function(rhy){
+      var updateCurrents = {};
+      updateCurrents['/lessons/lessonchosen'] = $scope.currLessons;
+      updateCurrents['/lessons/rhythmicpatternchosen'] = rhy;
+      firebase.database().ref().update(updateCurrents);
+      console.log(rhy);
+        //$location.url("/EditSublesson");
     }
 
 
