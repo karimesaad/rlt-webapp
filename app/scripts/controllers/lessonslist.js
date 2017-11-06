@@ -92,7 +92,7 @@ $scope.addNewRP = function(){
       btn10: 0,
       btn11: 0,
       btn12: 0,
-      btn12: 0,
+      btn13: 0,
       btn14: 0,
       btn15: 0,
       btn16: 0
@@ -110,7 +110,7 @@ $scope.addNewRP = function(){
       btn10: 0,
       btn11: 0,
       btn12: 0,
-      btn12: 0,
+      btn13: 0,
       btn14: 0,
       btn15: 0,
       btn16: 0
@@ -128,7 +128,7 @@ $scope.addNewRP = function(){
       btn10: 0,
       btn11: 0,
       btn12: 0,
-      btn12: 0,
+      btn13: 0,
       btn14: 0,
       btn15: 0,
       btn16: 0
@@ -146,7 +146,7 @@ $scope.addNewRP = function(){
       btn10: 0,
       btn11: 0,
       btn12: 0,
-      btn12: 0,
+      btn13: 0,
       btn14: 0,
       btn15: 0,
       btn16: 0
@@ -183,8 +183,9 @@ window.location.reload();
       updateCurrents['/lessons/lessonchosen'] = $scope.currLessons;
       updateCurrents['/lessons/rhythmicpatternchosen'] = rhy;
       updateCurrents['/lessons/Flags/Software/LoadLesson'] = 1;
+      dataService.sendRhythmicPattern(rhy);
       firebase.database().ref().update(updateCurrents);
-        //$location.url("/PlaySublesson");
+        $location.url("/PlaySublesson");
     }
 
     $scope.goToEdit = function(rhy){
@@ -192,8 +193,9 @@ window.location.reload();
       updateCurrents['/lessons/lessonchosen'] = $scope.currLessons;
       updateCurrents['/lessons/rhythmicpatternchosen'] = rhy;
       firebase.database().ref().update(updateCurrents);
+      dataService.sendRhythmicPattern(rhy);
       console.log(rhy);
-        //$location.url("/EditSublesson");
+          $location.url("/EditSublesson");
     }
 
 

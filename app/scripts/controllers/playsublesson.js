@@ -145,6 +145,16 @@ angular.module('testappApp')
   });
 //**************************************************//
 
+var loadedRef = firebase.database().ref('lessons/Flags/Hardware/LessonIsLoaded');
+loadedRef.on('value', function(snapshot) {
+  if(snapshot.val() == 1){
+    $scope.loadedFlag = false;
+  }
+  else{
+    $scope.loadedFlag = true;
+  }
+});
+
   var seqNumStart;
   var seqNumEnd;
 
@@ -200,11 +210,17 @@ angular.module('testappApp')
 
   $scope.playLesson = function(){
     if(startBtnFlag == 0){
+      var updatePlay = {};
+      updatePlay['/lessons/Flags/Software/PlayLesson'] = 1;
+      firebase.database().ref().update(updatePlay);
+      firebase.database().ref('lessons/Flags/Hardware/').set({
+        LessonIsLoaded: 0
+      });
       currBtn = 1;
       currSeq = 1;
       currSeqBtn = 1;
-      $scope.startInterval();
       startBtnFlag = 1;
+      $scope.startInterval();
     }
   }
 
@@ -216,6 +232,9 @@ angular.module('testappApp')
     currSeqBtn = 1;
     btnCounter = 1;
     colorGrid(1);
+    firebase.database().ref('lessons/Flags/Hardware/').set({
+  LessonIsLoaded: 1
+});
   }
 
     $scope.intervalHandler = function(){

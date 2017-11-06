@@ -19,7 +19,7 @@ angular.module('testappApp')
       $rootScope.$broadcast('lesson_shared');
     };
     service.sendRhythmicPattern = function(rhythmicPattern){
-      this.lesson = lesson;
+      //this.lesson = lesson;
       this.rhythmicPattern = rhythmicPattern;
       $rootScope.$broadcast('rp_shared');
     };
