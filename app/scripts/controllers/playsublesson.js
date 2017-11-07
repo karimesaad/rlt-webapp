@@ -8,7 +8,7 @@
 * Controller of the testappApp
 */
 angular.module('testappApp')
-.controller('PlaysublessonCtrl', function (firebaseFactory, dataService, ngAudio, $scope, $firebaseArray, $firebase, $firebaseObject) {
+.controller('PlaysublessonCtrl', function (firebaseFactory, dataService, ngAudio, $location, $scope, $firebaseArray, $firebase, $firebaseObject) {
   this.awesomeThings = [
     'HTML5 Boilerplate',
     'AngularJS',
@@ -139,6 +139,7 @@ angular.module('testappApp')
       sequencer[button] = sequencerRef4[buttonSeq];
     }
     console.log(sequencer);
+
   })
   .catch(function(err) {
     console.error(err);
@@ -152,6 +153,16 @@ loadedRef.on('value', function(snapshot) {
   }
   else{
     $scope.loadedFlag = true;
+  }
+});
+
+var gradedRef = firebase.database().ref('lessons/Flags/Graded/GradedFlag');
+gradedRef.on('value', function(snapshot) {
+  if(snapshot.val() == 1){
+      console.log(snapshot.val());
+      $location.url("/RhythmEvaluation");
+  }
+  else{
   }
 });
 
@@ -210,9 +221,9 @@ loadedRef.on('value', function(snapshot) {
 
   $scope.playLesson = function(){
     if(startBtnFlag == 0){
-      var updatePlay = {};
-      updatePlay['/lessons/Flags/Software/PlayLesson'] = 1;
-      firebase.database().ref().update(updatePlay);
+      firebase.database().ref('lessons/Flags/Play/').set({
+        PlayLesson: 1
+      });
       firebase.database().ref('lessons/Flags/Hardware/').set({
         LessonIsLoaded: 0
       });
@@ -232,9 +243,9 @@ loadedRef.on('value', function(snapshot) {
     currSeqBtn = 1;
     btnCounter = 1;
     colorGrid(1);
-    firebase.database().ref('lessons/Flags/Hardware/').set({
-  LessonIsLoaded: 1
-});
+//     firebase.database().ref('lessons/Flags/Hardware/').set({
+//   LessonIsLoaded: 1
+// });
   }
 
     $scope.intervalHandler = function(){
@@ -276,4 +287,5 @@ loadedRef.on('value', function(snapshot) {
       }
     }
   }
+
 });
