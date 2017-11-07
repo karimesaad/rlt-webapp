@@ -5,6 +5,13 @@
 
 <div class="container" ng-app="sortApp" ng-controller="RhythmevaluationCtrl">
 
+  <div layout="row" layout-align="center center">
+    <div layout="column" layout-align="center center">
+      <h2> Lesson: {{ lesson }} </h2>
+      <h3> Rhythmic Pattern: {{ rhythmicPattern }} </h3>
+    </div>
+  </div>
+
 <div class="feedbackTable">
 
   <!-- Sort Type: {{ sortType }}
@@ -34,8 +41,7 @@
 
       <tbody>
         <tr ng-repeat="performance in students | orderBy:sortType:sortReverse" >
-          <td class="td1">{{ performance.name1 }}</td>
-          <td class="td1">{{ performance.name2 }}</td>
+          <td class="td1">{{ performance.name }}</td>
           <td class="td1">{{ performance.score }}</td>
         </tr>
       </tbody>
