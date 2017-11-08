@@ -204,13 +204,13 @@ gradedRef.on('value', function(snapshot) {
   }
 
   //************************************************//
-  // var less = dataService.getLesson();
-  // var rp = dataService.getRhythmicPattern();
-  // var nameRef = firebase.database().ref('/lessons/lesson' + less + '/rhythmicpattern' + rp +'/bpm/');
-  // nameRef.on('value', function(snapshot){
-  //   $scope.bpm = snapshot.val();
-  // });
-  $scope.bpm = 120;
+  var less = dataService.getLesson();
+  var rp = dataService.getRhythmicPattern();
+  var nameRef = firebase.database().ref('/lessons/lesson' + less + '/rhythmicpattern' + rp +'/bpm/');
+  nameRef.on('value', function(snapshot){
+    $scope.bpm = snapshot.val();
+  });
+  // $scope.bpm = 120;
   var currBtn = 1;
   var currSeq = 1;
   var currSeqBtn = 1;
