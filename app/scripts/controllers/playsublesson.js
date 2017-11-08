@@ -25,6 +25,7 @@ angular.module('testappApp')
   var btnCounter = 1;
   var btnGrid = 1;
   var startBtnFlag = 0;
+  $scope.lastFlag = true;
 
   var sequencer = {
     "btn1": 1,
@@ -93,7 +94,7 @@ angular.module('testappApp')
     "btn64": 0,
   }
 
-  $scope.sound = ngAudio.load("audio/loop/clap-room-01.wav");
+  $scope.sound = ngAudio.load("audio/loop/Click1.wav");
 
   /*********** GET DATA PASSED FROM PREVIOUS PAGE ***********/
   $scope.lesson = dataService.getLesson();
@@ -203,16 +204,22 @@ gradedRef.on('value', function(snapshot) {
   }
 
   //************************************************//
-
-  $scope.bpm = 60;
+  var less = dataService.getLesson();
+  var rp = dataService.getRhythmicPattern();
+  var nameRef = firebase.database().ref('/lessons/lesson' + less + '/rhythmicpattern' + rp +'/bpm/');
+  nameRef.on('value', function(snapshot){
+    $scope.bpm = snapshot.val();
+  });
+  // $scope.bpm = 120;
   var currBtn = 1;
   var currSeq = 1;
   var currSeqBtn = 1;
   var interval;
   var bounceDuration;
+  var bpmConstant = 60000;
 
   $scope.startInterval = function(){
-    interval = setInterval(function(){ $scope.intervalHandler(); }, 60000/($scope.bpm));
+    interval = setInterval(function(){ $scope.intervalHandler(); }, bpmConstant/($scope.bpm));
   }
 
   $scope.stopInterval = function(){
@@ -249,7 +256,8 @@ gradedRef.on('value', function(snapshot) {
   }
 
     $scope.intervalHandler = function(){
-    bounceDuration = ((60000/($scope.bpm))*(sequencer["btn"+currBtn]));
+    bounceDuration = ((bpmConstant/($scope.bpm))*(sequencer["btn"+currBtn]));
+    console.log()
     var bounce = new Bounce();
     bounce.scale({
       from: {
@@ -267,9 +275,8 @@ gradedRef.on('value', function(snapshot) {
       stiffness: 1
     });
 
-    if(bounceDuration!= 0){
       $scope.sound.play();
-    }
+
     bounce.applyTo(document.getElementById("animation-target"+currSeqBtn));
 
     currBtn++;
@@ -280,10 +287,14 @@ gradedRef.on('value', function(snapshot) {
       if(currSeq <4){
         currSeq ++;
         colorGrid(currSeq);
+        if (currSeq == 4){
+          $scope.lastFlag = false;
+        }
       } else {
         // interval.stop();
         $scope.stopInterval();
         colorGrid(1);
+        $scope.lastFlag = true;
       }
     }
   }

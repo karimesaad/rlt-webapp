@@ -27,7 +27,6 @@ angular.module('testappApp')
         lessonCnt = lessonRef.numLessons;
 
         for(var i = 1; i <= lessonCnt; i++){
-          console.log("hello");
           var nameRef = firebase.database().ref('/lessons/lesson' + i + '/name');
           nameRef.on('value', function(snapshot) {
             $scope.lessons.push({'name': snapshot.val(), 'num': i});
@@ -168,7 +167,6 @@ window.location.reload();
         RPCnt = snapshot.val();
       });
       for(var i = 1; i <= RPCnt; i++){
-        console.log("hello");
         var RPRef = firebase.database().ref('/lessons/lesson' + $scope.currLessons + '/rhythmicpattern' + i);
         RPRef.on('value', function(snapshot) {
           $scope.RPs.push({'name': 'Rhythmic Pattern ' + i, 'num': i});
