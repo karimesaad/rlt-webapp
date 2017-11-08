@@ -25,6 +25,7 @@ angular.module('testappApp')
   var btnCounter = 1;
   var btnGrid = 1;
   var startBtnFlag = 0;
+  $scope.lastFlag = true;
 
   var sequencer = {
     "btn1": 1,
@@ -286,10 +287,14 @@ gradedRef.on('value', function(snapshot) {
       if(currSeq <4){
         currSeq ++;
         colorGrid(currSeq);
+        if (currSeq == 4){
+          $scope.lastFlag = false;
+        }
       } else {
         // interval.stop();
         $scope.stopInterval();
         colorGrid(1);
+        $scope.lastFlag = true;
       }
     }
   }
