@@ -14,6 +14,9 @@ angular.module('testappApp')
   .controller('RhythmevaluationCtrl', function (firebaseFactory, dataService, ngAudio, $scope, $firebaseArray, $firebase, $firebaseObject) {
 
     var ref = firebase.database().ref();
+    var studentRef = "Arthur Dent";
+    var studentCnt;
+    var studentAdded;
     // var lessonRef = 42;
     $scope.data = $firebaseObject(ref);
     // $scope.lessons = [];
@@ -39,15 +42,20 @@ angular.module('testappApp')
 
     $scope.data.$loaded()
       .then(function() {
-        lessonRef = $scope.data.lessons;
-        lessonCnt = lessonRef.numLessons;
-
-        for(var i = 1; i <= lessonCnt; i++){
+        studentRef = $scope.data.Students;
+        studentCnt = studentRef.numStudents;
+        for(var i = 1; i <= studentCnt; i++){
           console.log("hello");
-          var nameRef = firebase.database().ref('/lessons/lesson' + i + '/name');
+          var nameRef = firebase.database().ref('/Students/Student' + i);
           nameRef.on('value', function(snapshot) {
-            $scope.lessons.push({'name': snapshot.val(), 'num': i});
+            $scope.tempName = snapshot.val();
           });
+          var scoreRef = firebase.database().ref('/Students/Lesson' + $scope.lesson + '/RP' + $scope.rhythmicPattern +'/' + $scope.tempName);
+          scoreRef.on('value', function(snapshot) {
+            $scope.tempScore = snapshot.val();
+          });
+
+          $scope.students.push({'name': $scope.tempName, 'num': $scope.tempScore});
         }
       } )
       .catch(function(err) {
