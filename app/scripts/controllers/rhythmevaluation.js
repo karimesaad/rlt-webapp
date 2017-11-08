@@ -11,21 +11,55 @@
  // app.js
 
 angular.module('testappApp')
-  .controller('RhythmevaluationCtrl', function ($scope) {
-    this.awesomeThings = [
-  'HTML5 Boilerplate',
-  'AngularJS',
-  'Karma'
-];
-    $scope.sortType     = 'name2'; // set the default sort type
+  .controller('RhythmevaluationCtrl', function (firebaseFactory, dataService, ngAudio, $scope, $firebaseArray, $firebase, $firebaseObject) {
+
+    var ref = firebase.database().ref();
+    var studentRef = "Arthur Dent";
+    var studentCnt;
+    var studentAdded;
+    // var lessonRef = 42;
+    $scope.data = $firebaseObject(ref);
+    // $scope.lessons = [];
+    // $scope.RPs = [];
+    // var lessonCnt;
+    // var RPCnt;
+    // var RPadded = 0;
+    // $scope.currLessons = 1;
+
+    $scope.sortType     = 'name'; // set the default sort type
     $scope.sortReverse  = false;  // set the default sort order
     $scope.searchName   = '';     // set the default search/filter term
-
+    /*********** GET DATA PASSED FROM PREVIOUS PAGE ***********/
+    $scope.lesson = dataService.getLesson();
+    $scope.rhythmicPattern = dataService.getRhythmicPattern();
     // create the list of students
     $scope.students = [
-    { name1: 'Smudge', name2: 'Felis', score: Math.ceil(Math.random()*100) },
-    { name1: 'Tibbs', name2: 'Canis', score: Math.ceil(Math.random()*100) },
-    { name1: 'Lola', name2: 'Lupus', score: Math.ceil(Math.random()*100) },
-    { name1: 'Trey', name2: 'Catus', score: Math.ceil(Math.random()*100) },
+    // { name1: 'Smudge', name2: 'Felis', score: Math.ceil(Math.random()*100) },
+    // { name1: 'Tibbs', name2: 'Canis', score: Math.ceil(Math.random()*100) },
+    // { name1: 'Lola', name2: 'Lupus', score: Math.ceil(Math.random()*100) },
+    // { name1: 'Trey', name2: 'Catus', score: Math.ceil(Math.random()*100) },
     ];
+
+    $scope.data.$loaded()
+      .then(function() {
+        studentRef = $scope.data.Students;
+        studentCnt = studentRef.numStudents;
+        for(var i = 1; i <= studentCnt; i++){
+          console.log("hello");
+          var nameRef = firebase.database().ref('/Students/Student' + i);
+          nameRef.on('value', function(snapshot) {
+            $scope.tempName = snapshot.val();
+          });
+          var scoreRef = firebase.database().ref('/Students/Lesson' + $scope.lesson + '/RP' + $scope.rhythmicPattern +'/' + $scope.tempName);
+          scoreRef.on('value', function(snapshot) {
+            $scope.tempScore = snapshot.val();
+          });
+
+          $scope.students.push({'name': $scope.tempName, 'num': $scope.tempScore});
+        }
+      } )
+      .catch(function(err) {
+        console.error(err);
+      });
+
   });

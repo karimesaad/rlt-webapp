@@ -2,11 +2,11 @@
 
 
 <md-toolbar class="jumbotron">
-  <h1 style="text-align: center">Student Performance Reports</h1>
+  <h1 style="text-align: center">Select Student</h1>
 </md-toolbar>
 
 <div ng-controller="StudentperformanceCtrl" layout="row" flex>
-  <md-sidenav md-is-locked-open="true" class="md-whiteframe-4dp">
+  <!-- <md-sidenav md-is-locked-open="true" class="md-whiteframe-4dp">
     <md-list>
       <md-list-item>
         <md-button ng-click="">
@@ -21,14 +21,23 @@
         </md-button>
       </md-list-item>
     </md-list>
+  </md-sidenav> -->
+  <md-sidenav md-is-locked-open="true" class="md-whiteframe-4dp">
+    <table>
+      <tbody>
+        <tr ng-repeat="student in students">
+          <td><md-button>{{ student.name }}</md-button></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <md-button ng-click="addNewStudent($event)">
+      New Student
+    </md-button>
   </md-sidenav>
 
   <md-content id="content" flex>
     <h1>{{studentName}}</h1>
-
-
-
-
   </md-content>
   <!-- <div>Icons made by <a href="http://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div> -->
 </div>

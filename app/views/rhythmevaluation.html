@@ -5,6 +5,13 @@
 
 <div class="container" ng-app="sortApp" ng-controller="RhythmevaluationCtrl">
 
+  <div layout="row" layout-align="center center">
+    <div layout="column" layout-align="center center">
+      <h2> Lesson: {{ lesson }} </h2>
+      <h3> Rhythmic Pattern: {{ rhythmicPattern }} </h3>
+    </div>
+  </div>
+
 <div class="feedbackTable">
 
   <!-- Sort Type: {{ sortType }}
@@ -17,14 +24,11 @@
 
       <thead class="thead1">
         <tr class="tr1">
-          <td class="td1"> <a href="#!/RhythmEvaluation" ng-click="sortType = 'name1'">
-            <span ng-show="sortType == 'name1'" class="fa fa-caret-down"></span>
-            First Name
+          <td class="td1"> <a href="#!/RhythmEvaluation" ng-click="sortType = 'name'">
+            <span ng-show="sortType == 'name'" class="fa fa-caret-down"></span>
+            Name
           </a></td>
-          <td class="td1"> <a href="#!/RhythmEvaluation" ng-click="sortType = 'name2'">
-            <span ng-show="sortType == 'name2'" class="fa fa-caret-down"></span>
-            Last Name
-          </a></td>
+
           <td class="td1"> <a href="#!/RhythmEvaluation" ng-click="sortType = 'score'">
             <span ng-show="sortType == 'score'" class="fa fa-caret-down"></span>
             Score
@@ -34,9 +38,8 @@
 
       <tbody>
         <tr ng-repeat="performance in students | orderBy:sortType:sortReverse" >
-          <td class="td1">{{ performance.name1 }}</td>
-          <td class="td1">{{ performance.name2 }}</td>
-          <td class="td1">{{ performance.score }}</td>
+          <td class="td1">{{ performance.name }}</td>
+          <td class="td1">{{ performance.num }}</td>
         </tr>
       </tbody>
 
