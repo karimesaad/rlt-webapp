@@ -18,6 +18,7 @@ angular.module('testappApp')
       // { name:'Ronaldo' },
       // { name: 'Messi' }
   ];
+    $scope.pntr = 1;
 
 
   $scope.data.$loaded()
@@ -35,6 +36,19 @@ angular.module('testappApp')
     .catch(function(err) {
       console.error(err);
     });
+
+    $scope.studentPntr = function(selected){
+      $scope.pntr = selected;
+    }
+
+    $scope.selectUser = function(){
+      var userRef = firebase.database().ref('/Students/Student' + $scope.pntr + '/');
+      userRef.on('value', function(snapshot) {
+        var userPush = firebase.database().ref('/lessons/');
+        userPush.update({currUser: $scope.students[$scope.pntr - 1].name});
+      });
+        $location.url("/LessonsList")
+    }
 
     $scope.addNewStudent = function(ev){
       var studRef = firebase.database().ref('/lessons/lesson' + studentCnt);

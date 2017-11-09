@@ -17,6 +17,8 @@ angular.module('testappApp')
     var studentRef = "Arthur Dent";
     var studentCnt;
     var studentAdded;
+    var lesson;
+    var rhy;
     // var lessonRef = 42;
     $scope.data = $firebaseObject(ref);
     // $scope.lessons = [];
@@ -44,6 +46,19 @@ angular.module('testappApp')
       .then(function() {
         studentRef = $scope.data.Students;
         studentCnt = studentRef.numStudents;
+        var feedbackNameRef = firebase.database().ref('/lessons/currUser');
+        feedbackNameRef.on('value', function(snapshot) {
+          $scope.username = snapshot.val();
+          console.log("current user is" + $scope.username);
+        });
+        var scoreRef = firebase.database().ref('/Feedback/lesson' + $scope.lesson + '/RhythmicPattern/' + $scope.rhythmicPattern + '/Grade/' + $scope.username + '/Percentage/');
+        scoreRef.on('value', function(snapshot) {
+          $scope.percentage = snapshot.val();
+          console.log("% is " + snapshot.val());
+        });
+        var updateScore = {};
+        updateScore['/Students/Lesson' + $scope.lesson + '/RP' + $scope.rhythmicPattern +'/' + $scope.username + '/'] = $scope.percentage;
+        firebase.database().ref().update(updateScore);
         for(var i = 1; i <= studentCnt; i++){
           console.log("hello");
           var nameRef = firebase.database().ref('/Students/Student' + i);
