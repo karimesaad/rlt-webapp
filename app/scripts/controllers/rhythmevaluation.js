@@ -44,6 +44,7 @@ angular.module('testappApp')
 
     $scope.data.$loaded()
       .then(function() {
+        $scope.students.length = 0;
         studentRef = $scope.data.Students;
         studentCnt = studentRef.numStudents;
         var feedbackNameRef = firebase.database().ref('/lessons/currUser');
@@ -67,7 +68,12 @@ angular.module('testappApp')
           });
           var scoreRef = firebase.database().ref('/Students/Lesson' + $scope.lesson + '/RP' + $scope.rhythmicPattern +'/' + $scope.tempName);
           scoreRef.on('value', function(snapshot) {
+            if (snapshot.val() == null){
+              $scope.tempScore = 0;
+            }
+            else{
             $scope.tempScore = snapshot.val();
+          }
           });
 
           $scope.students.push({'name': $scope.tempName, 'num': $scope.tempScore});

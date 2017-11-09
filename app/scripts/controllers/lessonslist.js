@@ -196,5 +196,13 @@ window.location.reload();
           $location.url("/EditSublesson");
     }
 
+    $scope.goToGrade = function(rhy){
+      var updateCurrents = {};
+      updateCurrents['/lessons/lessonchosen'] = $scope.currLessons;
+      updateCurrents['/lessons/rhythmicpatternchosen'] = rhy;
+      firebase.database().ref().update(updateCurrents);
+      dataService.sendRhythmicPattern(rhy);
+          $location.url("/RhythmEvaluation");
+    }
 
   });
