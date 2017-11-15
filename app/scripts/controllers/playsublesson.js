@@ -8,7 +8,7 @@
 * Controller of the testappApp
 */
 angular.module('testappApp')
-.controller('PlaysublessonCtrl', function (firebaseFactory, dataService, ngAudio, $location, $scope, $firebaseArray, $firebase, $firebaseObject) {
+.controller('PlaysublessonCtrl', function (firebaseFactory, dataService, ngAudio, $location, $timeout, $scope, $firebaseArray, $firebase, $firebaseObject) {
   this.awesomeThings = [
     'HTML5 Boilerplate',
     'AngularJS',
@@ -150,7 +150,14 @@ angular.module('testappApp')
 var loadedRef = firebase.database().ref('lessons/Flags/Hardware/LessonIsLoaded');
 loadedRef.on('value', function(snapshot) {
   if(snapshot.val() == 1){
+    // var playCounter = 0;
+    // while (playCounter < 1000){
+    //   playCounter = playCounter + 1;
+    // }
+    // $scope.loadedFlag = false;
+    $timeout(function() {
     $scope.loadedFlag = false;
+}, 2000);
   }
   else{
     $scope.loadedFlag = true;
