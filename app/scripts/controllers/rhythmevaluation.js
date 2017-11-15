@@ -48,6 +48,9 @@ angular.module('testappApp')
         studentRef = $scope.data.Students;
         studentCnt = studentRef.numStudents;
         var feedbackNameRef = firebase.database().ref('/lessons/currUser');
+        firebase.database().ref('lessons/Flags/Graded/').set({
+          GradedFlag: 0
+        });
         feedbackNameRef.on('value', function(snapshot) {
           $scope.username = snapshot.val();
           console.log("current user is" + $scope.username);

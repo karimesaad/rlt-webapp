@@ -56,8 +56,7 @@ angular.module('testappApp')
     //console.log(lessonCnt);
     firebase.database().ref('/lessons/lesson' + lessonCnt + '/').set({
       name: result,
-      numRP: 0,
-      timesignature: 4
+      numRP: 0
     });
     var updateNumLesson = {};
     updateNumLesson['/lessons/numLessons/'] = lessonCnt;
@@ -77,6 +76,7 @@ $scope.addNewRP = function(){
     RPadded = snapshot.val() + 1;
   });
   firebase.database().ref('/lessons/lesson' + $scope.currLessons + '/rhythmicpattern' + RPadded ).set({
+    timesignature: 4,
     bpm: 60,
     sequencer1: {
       btn1: 0,
