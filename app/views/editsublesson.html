@@ -8,10 +8,6 @@
   <div layout="row" layout-align="center center">
     <div layout="column">
       <div ng-if="editing"> Current Note Duration:
-        <!-- <md-checkbox ng-model="quarter" ng-if="editing" ng-disabled="quarterDisabled" ng-change="quarterSelected()">Quarter</md-checkbox>
-        <md-checkbox ng-model="half" ng-if="editing" ng-disabled="halfDisabled" ng-change="halfSelected()">Half</md-checkbox>
-        <md-checkbox ng-model="whole" ng-if="editing" ng-disabled="wholeDisabled" ng-change="wholeSelected()">Whole</md-checkbox>
-        <md-checkbox ng-model="rest" ng-if="editing" ng-change="restSelected()">Rest</md-checkbox> -->
         <div layout="column">
           <md-checkbox ng-model="quarter" ng-disabled="true">Quarter</md-checkbox>
           <md-checkbox ng-model="half" ng-disabled="true">Half</md-checkbox>
@@ -27,8 +23,6 @@
           <md-checkbox ng-model="newWhole" ng-model="w" ng-disabled="wholeDisabled" ng-change="checked(4)">Whole</md-checkbox>
           <md-checkbox ng-model="newRest" ng-model="r" ng-change="checked(0)">Rest</md-checkbox>
         </div>
-        quarterDisabled: {{quarterDisabled}} ||| <br>halfDisabled: {{halfDisabled}} |||
-        wholeDisabled: {{wholeDisabled}}
       </div>
       <br>
       <div layout="column">
@@ -45,28 +39,28 @@
 
 
     <div layout="column">
-      <button class="button" id="animation-target1" ng-click="buttonSelected(1)"></button>
-      <button class="button" id="animation-target5" ng-click="buttonSelected(5)"></button>
-      <button class="button" id="animation-target9" ng-click="buttonSelected(9)"></button>
-      <button class="button" id="animation-target13"  ng-click="buttonSelected(13)"></button>
+      <button class="button" id="animation-1" ng-click="buttonSelected(1)"></button>
+      <button class="button" id="animation-5" ng-click="buttonSelected(5)"></button>
+      <button class="button" id="animation-9" ng-click="buttonSelected(9)"></button>
+      <button class="button" id="animation-13"  ng-click="buttonSelected(13)"></button>
     </div>
     <div layout="column">
-      <button class="button" id="animation-target2" ng-click="buttonSelected(2)"></button>
-      <button class="button" id="animation-target6" ng-click="buttonSelected(6)"></button>
-      <button class="button" id="animation-target10" ng-click="buttonSelected(10)"></button>
-      <button class="button" id="animation-target14"  ng-click="buttonSelected(14)"></button>
+      <button class="button" id="animation-2" ng-click="buttonSelected(2)"></button>
+      <button class="button" id="animation-6" ng-click="buttonSelected(6)"></button>
+      <button class="button" id="animation-10" ng-click="buttonSelected(10)"></button>
+      <button class="button" id="animation-14"  ng-click="buttonSelected(14)"></button>
     </div>
     <div layout="column">
-      <button class="button" id="animation-target3" ng-click="buttonSelected(3)"></button>
-      <button class="button" id="animation-target7" ng-click="buttonSelected(7)"></button>
-      <button class="button" id="animation-target11" ng-click="buttonSelected(11)"></button>
-      <button class="button" id="animation-target15"  ng-click="buttonSelected(15)"></button>
+      <button class="button" id="animation-3" ng-click="buttonSelected(3)"></button>
+      <button class="button" id="animation-7" ng-click="buttonSelected(7)"></button>
+      <button class="button" id="animation-11" ng-click="buttonSelected(11)"></button>
+      <button class="button" id="animation-15"  ng-click="buttonSelected(15)"></button>
     </div>
     <div layout="column">
-      <button class="button" id="animation-target4" ng-hide="hideLastCol" ng-click="buttonSelected(4)"></button>
-      <button class="button" id="animation-target8" ng-hide="hideLastCol" ng-click="buttonSelected(8)"></button>
-      <button class="button" id="animation-target12" ng-hide="hideLastCol" ng-click="buttonSelected(12)"></button>
-      <button class="button" id="animation-target16" ng-hide="hideLastCol" ng-click="buttonSelected(16)"></button>
+      <button class="button" id="animation-4" ng-hide="hideLastCol" ng-click="buttonSelected(4)"></button>
+      <button class="button" id="animation-8" ng-hide="hideLastCol" ng-click="buttonSelected(8)"></button>
+      <button class="button" id="animation-12" ng-hide="hideLastCol" ng-click="buttonSelected(12)"></button>
+      <button class="button" id="animation-16" ng-hide="hideLastCol" ng-click="buttonSelected(16)"></button>
     </div>
     <div layout="column">
       <div layout="row">
@@ -77,7 +71,9 @@
       <div layout="column">
         <br>
         <md-button class="md-primary md-raised" ng-click="editLesson()" ng-hide="editing"> Edit </md-button>
-        <md-button class="md-primary md-raised" ng-click="saveLesson()" ng-show="editing"> SAVE </md-button>
+        <md-button class="md-primary md-raised" ng-click="saveLesson()" ng-show="editing"> DONE EDITING </md-button>
+        <md-button class="md-primary md-raised" ng-click="updateFB()" > UPDATE </md-button>
+
       </div>
 
     </div>

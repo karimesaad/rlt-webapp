@@ -8,7 +8,7 @@
  * Controller of the testappApp
  */
 angular.module('testappApp')
-  .controller('EditsublessonCtrl', function ($mdDialog, $rootScope, $location, dataService, $scope, firebaseFactory, $firebaseArray, $firebase, $firebaseObject) {
+  .controller('EditsublessonCtrl', function ($window, $mdDialog, $rootScope, $location, dataService, $scope, firebaseFactory, $firebaseArray, $firebase, $firebaseObject) {
     this.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',
@@ -172,6 +172,7 @@ angular.module('testappApp')
       newSequencers[3] = sequencerRef3;
       newSequencers[4] = sequencerRef4;
 
+      console.log(sequencer);
       $scope.colorGrid(1);
     })
     .catch(function(err) {
@@ -184,7 +185,6 @@ angular.module('testappApp')
       if(typeof seqNum === 'undefined'){
         seqNum = $scope.currSequencer;
       }
-      console.log(seqNum);
       seqNumStart = (seqNum*16)-15;   // if seqNum == 1, then seqNumStart=(1*16)-15= 1. if seqNum == 2, then seqNumStart=(2*16)-15= 17, etc
       seqNumEnd = seqNum * 16;
 
@@ -192,7 +192,7 @@ angular.module('testappApp')
 
       for(var i = seqNumStart; i<=seqNumEnd; i++){
         tmpBtn = sequencer["btn"+btnCounter];
-        var elem = document.getElementById("animation-target"+btnGrid);
+        var elem = document.getElementById("animation-"+btnGrid);
         switch(tmpBtn){
           case 0:
             elem.style.backgroundColor = "#e0e0e0";
@@ -213,8 +213,6 @@ angular.module('testappApp')
         if(btnCounter == 64){
           btnCounter = 0;
         }
-        // console.log(btnGrid);
-        // console.log(btnCounter);
         btnGrid ++;
         btnCounter++;
       }
@@ -227,10 +225,6 @@ angular.module('testappApp')
     $scope.buttonSelected = function(currBtn){
 
       $scope.selectedBtn = currBtn;
-
-      //console.log($scope.rowCount(currBtn));
-      console.log(newSequencers[$scope.currSequencer]);
-
       updateCheckbox(currBtn);
       updateNewCheckbox(currBtn);
 
@@ -267,7 +261,6 @@ angular.module('testappApp')
             $scope.halfDisabled = true;
             $scope.$apply();
 
-            console.log("meow");
           }
           tmpBtn1 = currBtn+1;
           if(newSequencers[$scope.currSequencer]['btn'+tmpBtn1] == 1 || newSequencers[$scope.currSequencer]['btn'+tmpBtn1] == 2){
@@ -321,15 +314,17 @@ angular.module('testappApp')
       }
 
       if($scope.rowCount(currBtn)>=4){
-        if(newSequencers[$scope.currSequencer]['btn'+currBtn] == 1){
+        if(newSequencers[$scope.currSequencer]['btn'+currBtn] == 1 || btnColumn == 1){
           $scope.halfDisabled = true;
           $scope.wholeDisabled = true;
         }
-        if(newSequencers[$scope.currSequencer]['btn'+currBtn] == 2){
+        if(newSequencers[$scope.currSequencer]['btn'+currBtn] == 2 ){
           $scope.wholeDisabled = true;
         }
+        if(btnColumn == 2 || btnColumn == 3 ){
+          $scope.halfDisabled = true;
+        }
       }
-      //console.log(sequencer);
     }
 
     var updateCheckbox = function(btn){
@@ -419,11 +414,6 @@ angular.module('testappApp')
           }  else {
             toggleQuarter = false;
           }
-          console.log('ng-change quarterSelected');
-          console.log($scope.newQuarter);
-          console.log("selectedBtn: "+$scope.selectedBtn);
-          console.log("toggleQuarter: "+$scope.toggleQuarter);
-
           $scope.newHalf = false;
           $scope.newWhole = false;
           $scope.newRest = false;
@@ -444,10 +434,6 @@ angular.module('testappApp')
           }  else {
             toggleHalf = false;
           }
-          console.log('ng-change halfSelected');
-          console.log($scope.newHalf);
-          console.log("selectedBtn: "+$scope.selectedBtn);
-          console.log("toggleHalf: "+$scope.toggleHalf);
 
           $scope.newQuarter = false;
           $scope.newWhole = false;
@@ -469,11 +455,6 @@ angular.module('testappApp')
           }  else {
             toggleWhole = false;
           }
-          console.log('ng-change wholeSelected');
-          console.log($scope.newWhole);
-          console.log("selectedBtn: "+$scope.selectedBtn);
-          console.log("toggleWhole: "+$scope.toggleWhole);
-
           $scope.newQuarter = false;
           $scope.newHalf = false;
           $scope.newRest = false;
@@ -494,10 +475,6 @@ angular.module('testappApp')
           }  else {
             toggleRest = false;
           }
-          console.log('ng-change restSelected');
-          console.log($scope.newRest);
-          console.log("selectedBtn: "+$scope.selectedBtn);
-          console.log("toggleRest: "+$scope.toggleRest);
 
           $scope.newQuarter = false;
           $scope.newHalf = false;
@@ -512,13 +489,11 @@ angular.module('testappApp')
           newSequencers[$scope.currSequencer]['btn'+$scope.selectedBtn] = 0;
           colorButton(0);
       }
-      console.log(newSequencers[$scope.currSequencer]);
     }
 
     var colorButton = function(noteDuration){
-      console.log("selectedBtn: "+$scope.selectedBtn+"  noteDuration: "+noteDuration);
-      console.log(newSequencers[$scope.currSequencer]);
-      var elem = document.getElementById("animation-target"+$scope.selectedBtn);
+
+      var elem = document.getElementById("animation-"+$scope.selectedBtn);
       switch(noteDuration){
         case 1:
           elem.style.backgroundColor = "#3fc9ee";
@@ -568,6 +543,16 @@ angular.module('testappApp')
     $scope.bpmValidation = function(){
       if(!($scope.bpm >= 40 && $scope.bpm <= 200)){
         $scope.bpm = "";
+
+          $mdDialog.show(
+            $mdDialog.alert()
+              .parent(angular.element(document.querySelector('#popupContainer')))
+              .clickOutsideToClose(true)
+              .title('Incorrect BPM')
+              .textContent('Please input a number between 40 and 200.')
+              .ariaLabel('Alert Dialog Demo')
+              .ok('Got it!')
+          );
       }
     }
     $scope.editLesson = function(){
@@ -575,11 +560,6 @@ angular.module('testappApp')
     }
 
     $scope.saveLesson = function(){
-      console.log(sequencer);
-      console.log("inside save lesson function");
-
-      console.log("newSequencers: ");
-      console.log(newSequencers);
 
       $scope.editing = false;
 
@@ -612,16 +592,76 @@ angular.module('testappApp')
           sequencer['btn'+i] = 0;
         }
       }
-      console.log(sequencer);
     }
 
-    //   firebase.database().ref('/lessons/lesson1/sublesson1/stepsequencer1/btn' + i).set({
-    //     hit: values[arrayPtr]
-    //   });
-    //   arrayPtr++;
-    // }
-    // console.log(values);
-    // }
+    $scope.updateFB = function(){
+      if($scope.bpm!= null){
+        $scope.saveLesson();
+        var updateRP = {};
+        $scope.lesson = 2;
+        $scope.rhythmicPattern = 2;
+
+        for(var btn = 1; btn <= 16; btn ++){
+          button = 'btn' + btn;
+          //sequencer[button] = sequencerRef1[button];
+          console.log(sequencer[button]);
+          updateRP['/lessons/lesson'+$scope.lesson+'/rhythmicpattern'+$scope.rhythmicPattern+'/sequencer1/'+'btn'+btn+'/'] = sequencer[button];
+        }
+        sequencerRef2 = $scope.data.lessons['lesson'+$scope.lesson]['rhythmicpattern'+$scope.rhythmicPattern].sequencer2;
+        for(var btn = 17; btn <= 32; btn ++){
+          button = 'btn' + btn;
+          buttonSeq = btn-16;
+          console.log(sequencer[button]);
+
+          //sequencer[button] = sequencerRef2[buttonSeq];
+          updateRP['/lessons/lesson'+$scope.lesson+'/rhythmicpattern'+$scope.rhythmicPattern+'/sequencer2/'+'btn'+buttonSeq+'/'] = sequencer[button];
+        }
+        sequencerRef3 = $scope.data.lessons['lesson'+$scope.lesson]['rhythmicpattern'+$scope.rhythmicPattern].sequencer3;
+        for(var btn = 33; btn <= 48; btn ++){
+          button = 'btn' + btn;
+          buttonSeq = btn-32;
+          console.log(sequencer[button]);
+
+          //sequencer[button] = sequencerRef3[buttonSeq];
+          updateRP['/lessons/lesson'+$scope.lesson+'/rhythmicpattern'+$scope.rhythmicPattern+'/sequencer3/'+'btn'+buttonSeq+'/'] = sequencer[button];
+
+        }
+        sequencerRef4 = $scope.data.lessons['lesson'+$scope.lesson]['rhythmicpattern'+$scope.rhythmicPattern].sequencer4;
+        for(var btn = 49; btn <= 64; btn ++){
+          button = 'btn' + btn;
+          buttonSeq = btn-48;
+          console.log(sequencer[button]);
+
+          //sequencer[button] = sequencerRef4[buttonSeq];
+          updateRP['/lessons/lesson'+$scope.lesson+'/rhythmicpattern'+$scope.rhythmicPattern+'/sequencer4/'+'btn'+buttonSeq+'/'] = sequencer[button];
+
+        }
+        updateRP['/lessons/lesson'+$scope.lesson+'/rhythmicpattern'+$scope.rhythmicPattern+'/bpm/'] = $scope.bpm;
+        firebase.database().ref().update(updateRP);
+
+
+        $mdDialog.show(
+          $mdDialog.alert()
+            .parent(angular.element(document.querySelector('#popupContainer')))
+            .clickOutsideToClose(true)
+            .title('Success!')
+            .textContent('Rhythmic pattern was successfully updated.')
+            .ariaLabel('Alert Dialog Demo')
+            .ok('Got it!')
+        );
+
+      } else {
+        $mdDialog.show(
+          $mdDialog.alert()
+            .parent(angular.element(document.querySelector('#popupContainer')))
+            .clickOutsideToClose(true)
+            .title('Could not update rhythmic pattern lesson')
+            .textContent('Please input a number for BPM.')
+            .ariaLabel('Alert Dialog Demo')
+            .ok('Got it!')
+        );
+      }
+    }
 
     $scope.$on('data_shared',function(){
         var data = dataService.getLesson();
