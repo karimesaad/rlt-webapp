@@ -37,18 +37,38 @@ md-list-item > button {
 
 .avatar {
   position: relative;
-  width: 50px;
-  height: 50px;
+  width: 100px;
+  height: 100px;
   /*border: 1px solid #DDD;
   border-radius: 50%;*/
   display: inline-block;
   overflow: hidden;
   margin: 0px;
-  vertical-align: middle;
-  zoom:0.70;
+  vertical-align: left;
+  zoom:1.00;
   transform: translateZ(0);
   -webkit-transform: scale(1.00);
   -moz-transform:scale(1.00);
+  /*background: white;*/
+}
+
+.avatar1 {
+  position: relative;
+  padding-left: 10px;
+  padding-right: 10px;
+  width: 75px;
+  height: 75px;
+  /*border: 1px solid #DDD;*/
+  border-radius: 50%;
+  display: inline-block;
+  overflow: hidden;
+  margin: 0px;
+  vertical-align: left;
+  zoom:1.00;
+  transform: translateZ(0);
+  -webkit-transform: scale(1.00);
+  -moz-transform:scale(1.00);
+  /*background: white;*/
 }
 
 /* END LESSON LIST CSS */
@@ -103,6 +123,7 @@ body {
   border-bottom: 1px solid #e5e5e5;
   margin-bottom: 10px;
 }
+
 /* Make the masthead heading the same height as the navigation */
 .header h3 {
   margin-top: 0;

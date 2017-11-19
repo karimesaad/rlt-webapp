@@ -4171,7 +4171,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 }
 @media (min-width: 768px) {
   .navbar {
-    border-radius: 4px;
+    border-radius: 0;
   }
 }
 @media (min-width: 768px) {
@@ -4595,6 +4595,7 @@ fieldset[disabled] .navbar-default .btn-link:focus {
 .navbar-inverse .navbar-brand {
   color: #fff;
   background-color: #1A237E;
+  font-size: x-large;
 }
 
 .navbar-inverse .navbar-brand:hover,
@@ -4608,6 +4609,8 @@ fieldset[disabled] .navbar-default .btn-link:focus {
 }
 .navbar-inverse .navbar-nav > li > a {
   color: #fff;
+  font-size: large;
+
 }
 .navbar-inverse .navbar-nav > li > a:hover,
 .navbar-inverse .navbar-nav > li > a:focus {
@@ -4960,14 +4963,18 @@ a.badge:focus {
 }
 .jumbotron {
   padding-top: 30px;
-  padding-bottom: 30px;
-  margin-bottom: 30px;
+  /*padding-bottom: 30px;*/
+  /*margin-bottom: 30px;*/
   color: inherit;
   background-color: #eee;
 }
 .jumbotron h1,
 .jumbotron .h1 {
   color: inherit;
+  padding-left: 35px;
+  padding-right: 35px;
+  text-align: left;
+
 }
 .jumbotron p {
   margin-bottom: 15px;

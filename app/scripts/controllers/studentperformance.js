@@ -25,6 +25,11 @@ angular.module('testappApp')
     .then(function() {
       studentRef = $scope.data.Students;
       studentCnt = studentRef.numStudents;
+      var nameRef = firebase.database().ref('/lessons/currUser');
+      nameRef.on('value', function(snapshot) {
+        $scope.studentName = snapshot.val();
+      });
+
       for(var i = 1; i <= studentCnt; i++){
         console.log("hello");
         var nameRef = firebase.database().ref('/Students/Student' + i);
