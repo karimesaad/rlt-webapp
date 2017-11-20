@@ -53,13 +53,6 @@ angular.module('testappApp')
         userPush.update({currUser: $scope.students[$scope.pntr - 1].name});
       });
 
-      var clearFlags = {};
-      clearFlags['/lessons/Flags/Graded/GradedFlag'] = 0;
-      clearFlags['/lessons/Flags/Hardware/LessonIsLoaded'] = 0;
-      clearFlags['/lessons/Flags/Play/PlayLesson'] = 0;
-      clearFlags['/lessons/Flags/Software/LoadLesson'] = 0;
-      firebase.database().ref().update(clearFlags);
-
       $location.url("/LessonsList")
     }
 

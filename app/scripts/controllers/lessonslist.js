@@ -172,6 +172,16 @@ window.location.reload();
           $scope.RPs.push({'name': 'Rhythmic Pattern ' + i, 'num': i});
         });
       }
+
+
+      var clearFlags = {};
+      clearFlags['/lessons/Flags/Graded/GradedFlag'] = 0;
+      clearFlags['/lessons/Flags/Hardware/LessonIsLoaded'] = 0;
+      clearFlags['/lessons/Flags/Play/PlayLesson'] = 0;
+      clearFlags['/lessons/Flags/Software/LoadLesson'] = 0;
+      firebase.database().ref().update(clearFlags);
+
+
       //window.location.reload();
     }
 

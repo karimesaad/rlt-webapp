@@ -598,8 +598,6 @@ angular.module('testappApp')
       if($scope.bpm!= null){
         $scope.saveLesson();
         var updateRP = {};
-        $scope.lesson = 2;
-        $scope.rhythmicPattern = 2;
 
         for(var btn = 1; btn <= 16; btn ++){
           button = 'btn' + btn;
@@ -637,6 +635,8 @@ angular.module('testappApp')
 
         }
         updateRP['/lessons/lesson'+$scope.lesson+'/rhythmicpattern'+$scope.rhythmicPattern+'/bpm/'] = $scope.bpm;
+        console.log($scope.bpm);
+        console.log($scope.rhythmicPattern);
         firebase.database().ref().update(updateRP);
 
 
