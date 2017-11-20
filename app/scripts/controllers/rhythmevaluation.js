@@ -79,7 +79,7 @@ angular.module('testappApp')
           }
           });
 
-          $scope.students.push({'name': $scope.tempName, 'num': $scope.tempScore});
+          $scope.students.push({'name': $scope.tempName, 'score': $scope.tempScore});
         }
       } )
       .catch(function(err) {
