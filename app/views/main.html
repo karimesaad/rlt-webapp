@@ -1,5 +1,5 @@
 <div class="jumbotron">
-  <h1>Rhythmic Learning Tool</h1>
+  <h1>The Rhythmic Learning Tool Project</h1>
   <!-- <p class="lead">
     <!-- <img src="images/yeoman.png" alt="I'm Yeoman"><br> -->
     <!-- Always a pleasure scaffolding your apps.
@@ -7,14 +7,94 @@
   <p><a class="btn btn-lg btn-success" ng-href="#/">Splendid!<span class="glyphicon glyphicon-ok"></span></a></p> -->
 </div>
 
-<div class="container">
-      <div class="row marketing">
-        <h4>EE 464K: Senior Design</h4>
-        <li>Matthew Daumas
-        <li>Briar Coker
-        <li>Karime Saad
-        <li>Ryan Mallin
-        <li>Blake Muir
-        <li>Kenneth Hall
-  </div>
+<div ng-cloak>
+  <md-content>
+    <md-tabs md-dynamic-height md-border-bottom>
+      <md-tab label="THE TEAM">
+        <md-content class="md-padding">
+          <!-- <h1 class="md-display-2">The Team</h1> -->
+          <table class="table">
+            <div class="row marketing">
+              <tr><h3 class="md-display-6" style="padding-left:10px">Team Roles</h3></tr>
+              <tr>
+                <td>
+                  <h5>Karime Saad</h5>
+                  <li>Software Design
+                  <li>API Integration
+                </td>
+                <td>
+                  <h5>Matthew Daumas</h5>
+                  <li>User Interface
+                  <li>Project Management
+                </td>
+                <td>
+                  <h5>Blake Muir</h5>
+                  <li>Firebase Integration (Web App)
+                  <li>Database Management
+                </td>
+              </tr>
+              <!-- <tr><td><h3 class="md-display-6">Digital Instrument</h3></td><td></td><td></td></tr> -->
+              <tr>
+                <td>
+                  <h5>Briar Coker</h5>
+                  <li>Hardware Design
+                  <li>Enclosure Design
+                </td>
+                <td>
+                  <h5>Kenneth Hall</h5>
+                  <li>Algorithm Design
+                  <li>Project Management
+                </td>
+                <td>
+                  <h5>Ryan Mallin</h5>
+                  <li>Firebase Intergraion (Hardware)
+                  <li>Database Management
+                </td>
+              </tr>
+            </div>
+          </table>
+        </md-content>
+      </md-tab>
+      <md-tab label="Tools">
+        <md-content class="md-padding">
+          <h1 class="md-display-2">APIs, Frameworks, and Build Tools</h1>
+
+          <table class="table">
+            <div class="row marketing">
+              <tr>
+                <h4>AngularJS</h4>
+                <p>AngularJS is the front-end framework we used for our web application's development. The User Interface and Lesson Management modules are handled by Angular</p>
+                <h4>Firebase</h4>
+                <p>Firebase is a backend service that provides a real time database for storing lesson and student score information. Firebase is also used to synchronize the web app with our digital instrument</p>
+                <h4>Yeoman</h4>
+                <p>Yeoman is a set of tools for building web applications. Yeoman consists of a scaffolding tool, build tool, and package manager</p>
+              </tr>
+              <tr>
+                <td>
+                  <h4>Yeoman Tools</h4>
+                  <li>Yo
+                  <li>Grunt
+                  <li>Bower
+                  <li>Npm
+                </td>
+                <td>
+                  <h4>User Interface</h4>
+                  <li>Material Design
+                  <li>Bootstrap
+                  <li>Bounce.js
+                </td>
+                <td>
+                  <h4>Web App Testing</h4>
+                  <li>Jasime
+                  <li>Karma
+                </td>
+                <td></td><td></td>
+              </tr>
+            </div>
+          </table>
+        </md-content>
+      </md-tab>
+
+    </md-tabs>
+  </md-content>
 </div>
