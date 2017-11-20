@@ -45,35 +45,40 @@
 
   <md-content id="content" flex>
     <h1>Lesson Name: {{lessons[currLessons - 1].name}}</h1>
-    <table>
-      <tbody>
+    <table class="table">
+      <tbody>  <div style="padding-left: 30px; padding-right: 30px;">
         <tr ng-repeat="rp in RPs">
-          <td><h3>{{rp.name}}</h3></td>
-          <td>
+          <td><h2>{{rp.name}}
+          <!-- </td> -->
+          <!-- <td> -->
+
             <md-button ng-click="goToPlay(rp.num)">
               <md-icon md-svg-src="images/play-blue.svg" class="avatar1"></md-icon>
-              Play
+              <h5>Play</h5>
             </md-button>
-          </td>
-          <td>
+          <!-- </td>
+          <td> -->
             <md-button ng-click="goToEdit(rp.num)">
               <md-icon md-svg-src="images/edit.svg" class="avatar1"></md-icon>
-              Edit
+              <h5>Edit</h5>
             </md-button>
-          </td>
-          <td>
+          <!-- </td>
+          <td> -->
             <md-button ng-click="goToGrade(rp.num)">
               <md-icon md-svg-src="images/scores.svg" class="avatar1"></md-icon>
-              Scores
+              <h5>Scores</h5>
             </md-button>
-          </td>
+          </td> </h2>
         </tr>
+        <tr> <td>
+          <md-button ng-click="addNewRP()">
+            <h2>Create New Rhythmic Pattern</h2>
+          </md-button>
+        </td></tr></div>
       </tbody>
     </table>
 
-    <md-button ng-click="addNewRP()">
-      New Rhythmic Pattern
-    </md-button>
+
 
 
   </md-content>
