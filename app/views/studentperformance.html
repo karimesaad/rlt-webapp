@@ -2,7 +2,18 @@
 
 
 <md-toolbar class="jumbotron">
-  <h1 style="text-align: center">Select Student</h1>
+  <h1><div style="padding-bottom:20px;">Select Student</div>
+    <md-icon md-svg-src="images/student8.svg" class="avatar"></md-icon>
+    <md-icon md-svg-src="images/student.svg" class="avatar"></md-icon>
+    <md-icon md-svg-src="images/student1.svg" class="avatar"></md-icon>
+    <md-icon md-svg-src="images/student2.svg" class="avatar"></md-icon>
+    <md-icon md-svg-src="images/student4.svg" class="avatar"></md-icon>
+    <md-icon md-svg-src="images/student5.svg" class="avatar"></md-icon>
+    <md-icon md-svg-src="images/student6.svg" class="avatar"></md-icon>
+    <md-icon md-svg-src="images/student10.svg" class="avatar"></md-icon>
+
+
+</h1>
 </md-toolbar>
 
 <div ng-controller="StudentperformanceCtrl" layout="row" flex>
@@ -23,6 +34,9 @@
     </md-list>
   </md-sidenav> -->
   <md-sidenav md-is-locked-open="true" class="md-whiteframe-4dp">
+
+<h4 style="text-align: center; text-decoration: underline;">Choose or Create Profile:</h4>
+
     <table>
       <tbody>
         <tr ng-repeat="student in students">
@@ -32,16 +46,31 @@
     </table>
 
     <md-button ng-click="selectUser($event)">
-      Select Student
+      <h4>Select Student</h4>
     </md-button>
 
     <md-button ng-click="addNewStudent($event)">
-      New Student
+      <h4>New Student</h4>
     </md-button>
   </md-sidenav>
 
   <md-content id="content" flex>
-    <h1>{{studentName}}</h1>
+    <h1> Welcome to the Rhythmic Learning Tool!</br></h1>
+    <div class="row marketing">
+      <h3>
+        Choose your name from the sidebar and click "SELECT STUDENT" to get started.</br>
+
+      </h3>
+      <h3>
+        New Students! Save your scores by creating your own student profile.</br>
+      </h3>
+      <h4><ol>
+        <li>Press "NEW STUDENT" in the sidebar to create your profile.
+        <li>Enter your name
+        <li>Click select student to go to the lessons page
+        <li>Pick a rhythmic pattern to play along with</br>
+
+      </h4></ol>
   </md-content>
   <!-- <div>Icons made by <a href="http://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div> -->
 </div>

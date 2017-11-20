@@ -7,114 +7,73 @@
 <script src="bower_components/angular-material/angular-material.min.js"></script> -->
 
 <md-toolbar class="jumbotron">
-  <h1 style="text-align: center">Play or Edit Lessons</h1>
+  <h1>
+    <!-- <md-icon md-svg-src="images/quarter-Note-rest.svg" class="avatar1"></md-icon>
+    <md-icon md-svg-src="images/quarter-Note.svg" class="avatar1"></md-icon>
+    <md-icon md-svg-src="images/half-Note.svg" class="avatar1"></md-icon>
+    <md-icon md-svg-src="images/whole-Note.svg" class="avatar1"></md-icon> -->
+  <div style="padding-bottom:20px;">Select Lesson</div>
+    <md-icon md-svg-src="images/conductor.svg" class="avatar"></md-icon>
+    <md-icon md-svg-src="images/list-of-files.svg" class="avatar"></md-icon>
+    <md-icon md-svg-src="images/metronome.svg" class="avatar"></md-icon>
+    <md-icon md-svg-src="images/dj-table.svg" class="avatar"></md-icon>
+    <md-icon md-svg-src="images/quarter-Note-rest.svg" class="avatar"></md-icon>
+    <md-icon md-svg-src="images/quarter-Note.svg" class="avatar"></md-icon>
+    <md-icon md-svg-src="images/half-Note.svg" class="avatar"></md-icon>
+    <md-icon md-svg-src="images/whole-Note.svg" class="avatar"></md-icon></h1>
 </md-toolbar>
 
 <div ng-controller="LessonslistCtrl" layout="row" flex>
   <md-sidenav md-is-locked-open="true" class="md-whiteframe-4dp">
 
-        <!-- <md-button ng-click="showPageContent(1)">
-          <md-icon md-svg-src="images/3-4_Time.svg" class="avatar"></md-icon>
-          Lesson 1
-        </md-button>
+    <div> <table>
+      <tbody>
+        <tr>
+          <h4 style="text-align: center; text-decoration: underline;">Choose or Create Lesson:</h4>
+        </tr>
+        <tr ng-repeat="lesson in lessons">
+          <td style="text-align: left;"><md-button ng-click="lessonSelected(lesson.num)">{{ lesson.name }}</md-button></td>
+        </tr>
+      </tbody>
+    </table> </div>
 
-        <md-button ng-click="showPageContent(2)">
-          <md-icon md-svg-src="images/MusicIcon1.svg" class="avatar"></md-icon>
-          Lesson 2
-        </md-button>
+    <md-button ng-click="addNewLesson($event)">
+      <h4>Create a New Lesson</h4>
+    </md-button>
+  </md-sidenav>
 
-        <md-button ng-click="addNewLesson($event)">
-          New Lesson
-        </md-button> -->
 
+  <md-content id="content" flex>
+    <h1>Lesson Name: {{lessons[currLessons - 1].name}}</h1>
     <table>
       <tbody>
-        <tr ng-repeat="lesson in lessons">
-          <td><md-button ng-click="lessonSelected(lesson.num)">{{ lesson.name }}</md-button></td>
+        <tr ng-repeat="rp in RPs">
+          <td><h3>{{rp.name}}</h3></td>
+          <td>
+            <md-button ng-click="goToPlay(rp.num)">
+              <md-icon md-svg-src="images/play-blue.svg" class="avatar1"></md-icon>
+              Play
+            </md-button>
+          </td>
+          <td>
+            <md-button ng-click="goToEdit(rp.num)">
+              <md-icon md-svg-src="images/edit.svg" class="avatar1"></md-icon>
+              Edit
+            </md-button>
+          </td>
+          <td>
+            <md-button ng-click="goToGrade(rp.num)">
+              <md-icon md-svg-src="images/scores.svg" class="avatar1"></md-icon>
+              Scores
+            </md-button>
+          </td>
         </tr>
       </tbody>
     </table>
-    <!-- <md-button ng-click="addNewLesson($event)">
-      New Lesson
-    </md-button> -->
-    <!-- <form class="form-horizontal" role="form" ng-submit="addRow()">
-    	<div class="form-group">
-    		<label class="col-md-2 control-label">Name</label>
-    		<div class="col-md-4">
-    			<input type="text" class="form-control" name="name"
-    				ng-model="name" />
-    		</div>
-    	  <div class="form-group">
-    		  <div style="padding-left:110px">
-    			  <input type="submit" value="Submit" class="btn btn-primary"/>
-    		  </div>
-    	  </div>
-      </div>
-    </form> -->
-    <md-button ng-click="addNewLesson($event)">
-      New Lesson
+
+    <md-button ng-click="addNewRP()">
+      New Rhythmic Pattern
     </md-button>
-</md-sidenav>
-
-
-<md-content id="content" flex>
-    <!-- <h1>Lesson Name: {{lesson}}</h1> -->
-    <h1>Lesson Name: {{lessons[currLessons - 1].name}}</h1>
-
-    <!-- <md-list>
-      <md-list-item>
-        <h3>Rhythmic Pattern 1</h3>
-      </md-list-item>
-
-      <md-list-item>
-        <md-button ng-click="goToPlay()">
-          <md-icon md-svg-src="images/media-play.svg" class="avatar"></md-icon>
-          Play
-        </md-button>
-      </md-list-item>
-      <md-list-item>
-        <md-button ng-click="goToEdit()">
-          <md-icon md-svg-src="images/ellipses.svg" class="avatar" ></md-icon>
-          Edit
-        </md-button>
-      </md-list-item>
-      <md-list-item>
-        <h3>Rhythmic Pattern 2</h3>
-      </md-list-item>
-
-      <md-list-item>
-        <md-button ng-click="goToPlay()">
-          <md-icon md-svg-src="images/media-play.svg" class="avatar" ng-click="goToPlay()"></md-icon>
-          Play
-        </md-button>
-      </md-list-item>
-      <md-list-item>
-        <md-button ng-click="goToEdit()">
-          <md-icon md-svg-src="images/ellipses.svg" class="avatar" ng-click="goToEdit()"></md-icon>
-          Edit
-        </md-button>
-      </md-list-item>
-      <md-list-item>
-        <md-button ng-click="addNewRP($event, $scope.lessonSelect)">
-          New Rhythmic Pattern
-        </md-button>
-      </md-list-item>
-    </md-list> -->
-
-<table>
-  <tbody>
-    <tr ng-repeat="rp in RPs">
-      <td>{{rp.name}}</td>
-      <td><md-button ng-click="goToPlay(rp.num)">Play</md-button></td>
-      <td><md-button ng-click="goToEdit(rp.num)">Edit</md-button></td>
-      <td><md-button ng-click="goToGrade(rp.num)">Grades</md-button></td>
-    </tr>
-  </tbody>
-</table>
-
-<md-button ng-click="addNewRP()">
-  New Rhythmic Pattern
-</md-button>
 
 
   </md-content>
