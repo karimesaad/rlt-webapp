@@ -52,7 +52,15 @@ angular.module('testappApp')
         var userPush = firebase.database().ref('/lessons/');
         userPush.update({currUser: $scope.students[$scope.pntr - 1].name});
       });
-        $location.url("/LessonsList")
+
+      var clearFlags = [];
+      clearFlags['/lessons/Flags/Graded/GradedFlag'] = 0;
+      clearFlags['/lessons/Flags/Hardware/LessonIsLoaded'] = 0;
+      clearFlags['/lessons/Flags/PlayLesson/PlayLesson'] = 0;
+      clearFlags['/lessons/Flags/Software/LoadLesson'] = 0;
+      firebase.database().ref().update(clearFlags);
+
+      $location.url("/LessonsList")
     }
 
     $scope.addNewStudent = function(ev){
