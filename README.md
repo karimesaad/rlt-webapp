@@ -24,15 +24,15 @@ For the teacher web interface, we created a web application that allows the teac
 
 ### APIs, Frameworks, and Build Tools
 
-*AngularJS: AngularJS is the front-end framework we used for our web application's development. The User Interface and Lesson Management modules are handled by Angular
+-AngularJS: AngularJS is the front-end framework we used for our web application's development. The User Interface and Lesson Management modules are handled by Angular
 
-*Firebase: Firebase is a backend service that provides a real time database for storing lesson and student score information. Firebase is also used to synchronize the web app with our digital instrument
+-Firebase: Firebase is a backend service that provides a real time database for storing lesson and student score information. Firebase is also used to synchronize the web app with our digital instrument
 
-*Yeoman: Yeoman is a set of tools for building web applications. Yeoman consists of a scaffolding tool, build tool, and package manager such as Grunt, Bower, and NPM.
+-Yeoman: Yeoman is a set of tools for building web applications. Yeoman consists of a scaffolding tool, build tool, and package manager such as Grunt, Bower, and NPM.
 
-*User Interface: Material Design, Bootstrap, Bounce.js
+-User Interface: Material Design, Bootstrap, Bounce.js
 
-*Testing: Jasmine and Karma
+-Testing: Jasmine and Karma
 
 
 
