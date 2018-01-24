@@ -8,6 +8,15 @@ Our design focused on a hardware interface for students to perform rhythmic patt
 
 For the teacher web interface, we created a web application that allows the teacher to create lessons, edit lessons, display the lessons created to the students, and visualize student performance data. The web interface interacts with a database to store and retrieve information. The lessons created by the teacher are stored in the database, so they can be accessed anytime and modified if needed. The web application obtains the student performance data from the hardware controller through the database.
 
+## Authors: 
+#### [Karime Saad] (https://github.com/karimesaad)
+#### [Matthew Daumas] (https://github.com/MattDaumas)
+#### [Blake Muir](https://github.com/muirblake)
+
+## Senior Design Project
+### The University of Texas at Austin - Electrical and Computer Engineering
+### January 2017 to December 2017
+
 
 
 ##### testapp
